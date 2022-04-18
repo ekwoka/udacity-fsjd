@@ -1,0 +1,28 @@
+import { build } from 'esbuild';
+import { copy } from 'esbuild-plugin-copy';
+import { readdir } from 'fs/promises';
+
+const utils = (await readdir('./src/utils')).map((f) => `./src/utils/${f}`);
+
+console.time('esbuild');
+build({
+  entryPoints: ['./src/index.ts', ...utils],
+  outdir: './dist',
+  splitting: false,
+  format: 'esm',
+  bundle: false,
+  target: 'es2020',
+  platform: 'node',
+  minify: true,
+  plugins: [
+    copy({
+      assets: {
+        from: ['./src/images/*'],
+        to: ['./images/file'],
+      },
+    }),
+  ],
+}).then(async (res) => {
+  console.log('JS Build Complete');
+  console.timeEnd('esbuild');
+});
