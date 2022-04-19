@@ -1,5 +1,4 @@
-import { processImage } from '../../utils/processImage.js';
-import sizeOf from 'image-size';
+import { processImage, getRatio, getSize } from '../../utils/index.js';
 import { readFile } from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -17,7 +16,7 @@ const width = 300;
 const height = 200;
 
 describe('Squoosh Image Processor', () => {
-  let file: Buffer | undefined = undefined;
+  let file: Buffer = undefined as unknown as Buffer;
   beforeAll(async () => {
     file = await readFile(filePath);
   });
@@ -26,36 +25,93 @@ describe('Squoosh Image Processor', () => {
     it('loads the file', () => {
       expect(file).toBeTruthy();
     });
+  });
 
-    it('can get the file dimensions', () => {
-      expect(sizeOf(file as Buffer).width).toBeDefined();
+  describe('Image information handler', () => {
+    it('gets the image size', () => {
+      const { width, height } = getSize(file);
+      expect(width).toBeGreaterThan(0);
+      expect(height).toBeGreaterThan(0);
+    });
+
+    it('gets the image ratio', () => {
+      const ratio = getRatio(file);
+      expect(ratio).toBeGreaterThan(0);
     });
   });
 
   it('resizes images properly', async () => {
-    const buffer = await processImage(file as Buffer, { width, height });
-    const size = sizeOf(Buffer.from(buffer.buffer));
-    const test = size.width === width && size.height === height;
-    expect(test).toBeTrue();
+    const processed = await processImage(file as Buffer, { width, height });
+    const size = getSize(Buffer.from(processed.buffer));
+    expect(size.width).toBe(width);
+    expect(size.height).toBe(height);
   });
 
   it('maintains aspect ratio when resizing by height', async () => {
-    const origSize: any = sizeOf(file as Buffer);
-    const buffer = await processImage(file as Buffer, { height });
-    const outputSize: any = sizeOf(Buffer.from(buffer.buffer));
-    expect(outputSize.width / outputSize.height).toBeCloseTo(
-      origSize.width / origSize.height,
-      1
-    );
+    const processed = await processImage(file as Buffer, { width: 0, height });
+    const [outputRatio, originalRatio] = [
+      getRatio(Buffer.from(processed.buffer)),
+      getRatio(file),
+    ];
+    expect(outputRatio).toBeCloseTo(originalRatio, 1);
   });
 
   it('maintains aspect ratio when resizing by width', async () => {
-    const origSize: any = sizeOf(file as Buffer);
-    const buffer = await processImage(file as Buffer, { width });
-    const outputSize: any = sizeOf(Buffer.from(buffer.buffer));
-    expect(outputSize.width / outputSize.height).toBeCloseTo(
-      origSize.width / origSize.height,
-      1
-    );
+    const processed = await processImage(file as Buffer, { width, height: 0 });
+    const [outputRatio, originalRatio] = [
+      getRatio(Buffer.from(processed.buffer)),
+      getRatio(file),
+    ];
+    expect(outputRatio).toBeCloseTo(originalRatio, 1);
+  });
+
+  describe('handles illegal values correctly', () => {
+    it('limits negative height', async () => {
+      const processed = await processImage(file as Buffer, {
+        width,
+        height: -1,
+      });
+      const [outputRatio, originalRatio] = [
+        getRatio(Buffer.from(processed.buffer)),
+        getRatio(file),
+      ];
+      expect(outputRatio).toBeCloseTo(originalRatio, 1);
+    });
+
+    it('limits negative width', async () => {
+      const processed = await processImage(file as Buffer, {
+        width: -1,
+        height,
+      });
+      const [outputRatio, originalRatio] = [
+        getRatio(Buffer.from(processed.buffer)),
+        getRatio(file),
+      ];
+      expect(outputRatio).toBeCloseTo(originalRatio, 1);
+    });
+
+    it('ignores infinity', async () => {
+      const processed = await processImage(file as Buffer, {
+        width: 300,
+        height: Infinity,
+      });
+      const [outputRatio, originalRatio] = [
+        getRatio(Buffer.from(processed.buffer)),
+        getRatio(file),
+      ];
+      expect(outputRatio).toBeCloseTo(originalRatio, 1);
+    });
+
+    it('limits sizes to the original size', async () => {
+      const processed = await processImage(file as Buffer, {
+        width: 10000,
+        height: 10000,
+      });
+      const [outputRatio, originalRatio] = [
+        getRatio(Buffer.from(processed.buffer)),
+        getRatio(file),
+      ];
+      expect(outputRatio).toBeCloseTo(originalRatio, 1);
+    });
   });
 });
