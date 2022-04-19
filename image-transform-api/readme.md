@@ -1,4 +1,13 @@
 # Image Transformation API
+#### Quick Start Command
+
+```
+git clone https://github.com/ekwoka/udacity-fsjd && cd udacity-fsjd/image-transform-api && npm i && npm run test
+
+// or
+
+git clone https://github.com/ekwoka/udacity-fsjd && cd udacity-fsjd/image-transform-api && pnpm i && pnpm test
+```
 
 This express server sample provides an image transformation api to image requests. Simply accessing the url of the image (available from `/images/`) will return the image, while adding query params of `width` and/or `height` will return resized images, perfect for responsive image and placeholder use cases.
 
