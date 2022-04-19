@@ -1,24 +1,11 @@
 import { build } from 'esbuild';
 import { copy } from 'esbuild-plugin-copy';
-import { readdir } from 'fs/promises';
+import { getAllTypeScript } from './utils/getAllTypescript.mjs';
 
-const utils = (await readdir('./src/utils')).map((f) => `./src/utils/${f}`);
-const routes = (await readdir('./src/routes')).map((f) => `./src/routes/${f}`);
-const tests = await (async () => {
-  const base = './src/tests';
-  const folders = (await readdir(base)).map((f) => [f, `${base}/${f}`]);
-  const files = folders.map(async ([fol, path]) => {
-    const files = (await readdir(path)).map((f) => `${path}/${f}`);
-    return files;
-  });
-  return await Promise.all(files);
-})();
-
-console.log(tests.flat());
-
+const paths = await getAllTypeScript(['./src']);
 console.time('esbuild');
 build({
-  entryPoints: ['./src/index.ts', ...utils, ...routes, ...tests.flat()],
+  entryPoints: paths,
   outdir: './dist',
   splitting: false,
   format: 'esm',
