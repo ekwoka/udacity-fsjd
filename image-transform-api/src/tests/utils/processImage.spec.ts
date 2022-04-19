@@ -2,6 +2,7 @@ import { processImage, getRatio, getSize } from '../../utils/index.js';
 import { readFile } from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { getType } from '../../utils/getInfo.js';
 
 const filePath = path.join(
   fileURLToPath(import.meta.url),
@@ -42,37 +43,56 @@ describe('Squoosh Image Processor', () => {
 
   it('resizes images properly', async () => {
     const processed = await processImage(file as Buffer, { width, height });
-    const size = getSize(Buffer.from(processed.buffer));
+    const size = getSize(processed);
     expect(size.width).toBe(width);
     expect(size.height).toBe(height);
   });
 
   it('maintains aspect ratio when resizing by height', async () => {
     const processed = await processImage(file as Buffer, { width: 0, height });
-    const [outputRatio, originalRatio] = [
-      getRatio(Buffer.from(processed.buffer)),
-      getRatio(file),
-    ];
+    const [outputRatio, originalRatio] = [getRatio(processed), getRatio(file)];
     expect(outputRatio).toBeCloseTo(originalRatio, 1);
   });
 
   it('maintains aspect ratio when resizing by width', async () => {
     const processed = await processImage(file as Buffer, { width, height: 0 });
-    const [outputRatio, originalRatio] = [
-      getRatio(Buffer.from(processed.buffer)),
-      getRatio(file),
-    ];
+    const [outputRatio, originalRatio] = [getRatio(processed), getRatio(file)];
     expect(outputRatio).toBeCloseTo(originalRatio, 1);
   });
 
-  describe('handles illegal values correctly', () => {
+  describe('Supports filetypes', () => {
+    it('jpg', async () => {
+      const processed = await processImage(
+        file as Buffer,
+        { width, height },
+        false
+      );
+      const type = getType(processed);
+      expect(type).toBe('jpg');
+    });
+
+    it('webp', async () => {
+      const processed = await processImage(
+        file as Buffer,
+        {
+          width,
+          height,
+        },
+        true
+      );
+      const type = getType(processed);
+      expect(type).toBe('webp');
+    });
+  });
+
+  describe('Handles illegal values correctly', () => {
     it('limits negative height', async () => {
       const processed = await processImage(file as Buffer, {
         width,
         height: -1,
       });
       const [outputRatio, originalRatio] = [
-        getRatio(Buffer.from(processed.buffer)),
+        getRatio(processed),
         getRatio(file),
       ];
       expect(outputRatio).toBeCloseTo(originalRatio, 1);
@@ -84,7 +104,7 @@ describe('Squoosh Image Processor', () => {
         height,
       });
       const [outputRatio, originalRatio] = [
-        getRatio(Buffer.from(processed.buffer)),
+        getRatio(processed),
         getRatio(file),
       ];
       expect(outputRatio).toBeCloseTo(originalRatio, 1);
@@ -96,7 +116,7 @@ describe('Squoosh Image Processor', () => {
         height: Infinity,
       });
       const [outputRatio, originalRatio] = [
-        getRatio(Buffer.from(processed.buffer)),
+        getRatio(processed),
         getRatio(file),
       ];
       expect(outputRatio).toBeCloseTo(originalRatio, 1);
@@ -108,7 +128,7 @@ describe('Squoosh Image Processor', () => {
         height: 10000,
       });
       const [outputRatio, originalRatio] = [
-        getRatio(Buffer.from(processed.buffer)),
+        getRatio(processed),
         getRatio(file),
       ];
       expect(outputRatio).toBeCloseTo(originalRatio, 1);

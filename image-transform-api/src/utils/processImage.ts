@@ -1,7 +1,7 @@
 // @ts-ignore
 import { ImagePool } from '@squoosh/lib';
 import { cpus } from 'os';
-import { getSize } from './getSize.js';
+import { getSize } from './getInfo.js';
 
 const encodeOptions = {
   jpg: {

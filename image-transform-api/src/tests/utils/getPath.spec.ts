@@ -33,4 +33,14 @@ describe('Getting File Paths', () => {
     const [, cachedPath] = getPath('test.jpg', { width: 0, height: 0 });
     expect(cachedPath).toContain('test.jpg');
   });
+
+  it('returns webp path when supported', () => {
+    const [, cachedPath] = getPath('test.jpg', { width, height }, true);
+    expect(cachedPath).toContain('webp');
+  });
+
+  it('returns jpg path when webp not supported', () => {
+    const [, cachedPath] = getPath('test.jpg', { width, height }, false);
+    expect(cachedPath).toContain('jpg');
+  });
 });

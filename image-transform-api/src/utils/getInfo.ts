@@ -12,3 +12,8 @@ export const getSize = (buffer: Buffer): { width: number; height: number } => {
   };
   return { width, height };
 };
+
+export const getType = (buffer: Buffer): string => {
+  const { type } = sizeOf(buffer) as unknown as { type: string };
+  return type;
+};
