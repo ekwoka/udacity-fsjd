@@ -1,5 +1,7 @@
 # Image Transformation API
 
+This express server
+
 ## Using:
 
 - Node
@@ -10,25 +12,20 @@
 - Squoosh
 
 ## Commands
+> This documentation assumes the use of `pnpm` but should work with `npm` or `yarn` as well
 
-Before any commands will work, run `npm i` or `pnpm i` to install dependencies.
+Before any commands will work, run `pnpm i` to install dependencies.
 
-## Dev Server
+Purpose|Command|Desc
+---|---|---
+Dev Server|`pnpm start`|runs server and refreshes when files are changed
+Build|`pnpm build`|Compiles TS files to JS files with esbuild
+Serve|`pnpm serve`|Runs server from compiled JS files
+Test|`pnpm test`|Compiles server and runs unit tests
 
-`npm run start` or `pnpm start`
-This runs the server directly from the source TS files and refreshes when file-changes are made.
+## Use
 
-## Build
+When the server is running, you can use the following URL to test the API:
 
-`npm run build` or `pnpm build`
-This uses ESBuild to compile and minify the source files into JS files
+[http://localhost:3000/image/icelandwaterfall.jpg?width=700](http://localhost:3000/image/icelandwaterfall.jpg?width=700)
 
-## Serve
-
-`npm run serve` or `pnpm serve`
-This runs the server from the built JS files.
-
-## Test
-
-`npm run test` or `pnpm test`
-Runs Jasmine Test suite on the API.

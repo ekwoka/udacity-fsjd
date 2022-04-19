@@ -10,7 +10,7 @@ export const getPath = (
     '..',
     '..',
     'images',
-    `${fileName}.jpg`
+    fileName
   );
   const cachedPath = path.join(
     fileURLToPath(import.meta.url),
@@ -18,7 +18,9 @@ export const getPath = (
     '..',
     'images',
     'cache',
-    `${fileName}${width || height ? `_${width || ''}x${height || ''}` : ''}.jpg`
+    `${fileName.split('.')[0]}${
+      width || height ? `_${width || ''}x${height || ''}` : ''
+    }.jpg`
   );
   return [originalPath, cachedPath];
 };
