@@ -4,12 +4,18 @@ import { cpus } from 'os';
 import { getSize } from './getSize.js';
 
 const encodeOptions = {
-  mozjpeg: 'auto',
+  jpg: {
+    mozjpeg: 'auto',
+  },
+  webp: {
+    webp: 'auto',
+  },
 };
 
 export const processImage = async (
   file: Buffer,
-  options: { width: number; height: number; [key: string]: any }
+  options: { width: number; height: number; [key: string]: any },
+  webp?: boolean
 ) => {
   const orig = getSize(file) as { [key: string]: any };
   ['width', 'height'].forEach((key) => {
@@ -33,9 +39,11 @@ export const processImage = async (
     };
     await image.preprocess(preprocessOptions);
   }
-  await image.encode(encodeOptions);
+  await image.encode(webp ? encodeOptions.webp : encodeOptions.jpg);
   await pool.close();
 
-  const result = await image.encodedWith.mozjpeg;
-  return result.binary;
+  const result = webp
+    ? await image.encodedWith.webp
+    : await image.encodedWith.mozjpeg;
+  return Buffer.from(result.binary.buffer);
 };

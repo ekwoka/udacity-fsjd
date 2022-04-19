@@ -3,7 +3,8 @@ import { fileURLToPath } from 'url';
 
 export const getPath = (
   fileName: string,
-  { width, height }: { width?: number; height?: number }
+  { width, height }: { width?: number; height?: number },
+  webp?: boolean
 ): [string, string] => {
   const originalPath = path.join(
     fileURLToPath(import.meta.url),
@@ -20,7 +21,7 @@ export const getPath = (
     'cache',
     `${fileName.split('.')[0]}${
       width || height ? `_${width || ''}x${height || ''}` : ''
-    }.jpg`
+    }.${webp ? 'webp' : 'jpg'}`
   );
   return [originalPath, cachedPath];
 };
