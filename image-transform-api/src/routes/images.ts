@@ -1,14 +1,13 @@
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { existsSync, promises as fs } from 'fs';
 import { getPath, processImage } from '../utils/index.js';
 
 const Images = Router();
 
-Images.get('/*.jpg', async (req, res) => {
+Images.get('/*.jpg', async (req: Request, res: Response) => {
   const { path, query } = req;
   const [width, height] = [Number(query.width), Number(query.height)];
   const webp = !!req.accepts('image/webp');
-  console.log(webp);
   try {
     if (!path.includes('.')) throw 'file does not exist';
     const [originalPath, cachedPath] = getPath(path, { width, height }, webp);
