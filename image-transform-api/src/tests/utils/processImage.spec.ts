@@ -13,8 +13,8 @@ const filePath = path.join(
   `icelandwaterfall.jpg`
 );
 
-const width = 300;
-const height = 200;
+const width = 100;
+const height = 100;
 
 describe('Squoosh Image Processor', () => {
   let file: Buffer = undefined as unknown as Buffer;

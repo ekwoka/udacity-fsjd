@@ -9,3 +9,5 @@ app.listen(port, () => console.log(`Server is running on port ${port}`));
 
 app.use(compression);
 app.use('/images', Images);
+
+export { app };

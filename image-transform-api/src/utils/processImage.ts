@@ -1,6 +1,5 @@
 // @ts-ignore
 import { ImagePool } from '@squoosh/lib';
-import { cpus } from 'os';
 import { getSize } from './getInfo.js';
 
 const encodeOptions = {
@@ -29,7 +28,7 @@ export const processImage = async (
   if (options.width === orig.width && options.height === orig.height) {
     return file;
   }
-  const pool = new ImagePool(cpus().length);
+  const pool = new ImagePool(2);
   const image = pool.ingestImage(file);
   if (options.width || options.height) {
     const preprocessOptions: {
