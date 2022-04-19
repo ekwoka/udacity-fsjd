@@ -1,4 +1,5 @@
 # Image Transformation API
+
 #### Quick Start Command
 
 ```
@@ -15,7 +16,6 @@ The api also dynamically returns `webp` images when the browser accepts them.
 
 > Note: Upon first access of an imageset, there can be a bit of a delay, depending on the size requested. Subsequent accesses will be faster due to transformed images being cached.
 
-
 ## Using:
 
 - Typescript
@@ -25,25 +25,26 @@ The api also dynamically returns `webp` images when the browser accepts them.
 - Squoosh
 
 ## Commands
+
 > Note: This documentation assumes the use of `pnpm` but should work with `npm` or `yarn` as well
 
 Before any commands will work, run `pnpm i` to install dependencies.
 
-Purpose|Command|Desc
----|---|---
-Dev Server|`pnpm start`|runs server and refreshes when files are changed
-Build|`pnpm build`|Compiles TS files to JS files with esbuild
-Serve|`pnpm serve`|Runs server from compiled JS files
-Test|`pnpm test`|Compiles server and runs unit tests
+| Purpose    | Command      | Desc                                             |
+| ---------- | ------------ | ------------------------------------------------ |
+| Dev Server | `pnpm start` | runs server and refreshes when files are changed |
+| Build      | `pnpm build` | Compiles TS files to JS files with esbuild       |
+| Serve      | `pnpm serve` | Runs server from compiled JS files               |
+| Test       | `pnpm test`  | Compiles server and runs unit tests              |
 
 ## Use
 
 When the server is running, you can use the following URL to test the API:
 
-[http://localhost:3000/image/icelandwaterfall.jpg?width=700](http://localhost:3000/image/icelandwaterfall.jpg?width=700)
-
+[http://localhost:3000/images/icelandwaterfall.jpg?width=700](http://localhost:3000/images/icelandwaterfall.jpg?width=700)
 
 ## Experience
+
 Overall, this project was fairly fun to do. Having a server capable of on the fly transformations is a very valuable thing to have. I've had experience using Cloudinary and the Shopify CDN to accomplish this in the past and it was fun to put one together my self, especially in seeing how performant their options are in comparison.
 
 Having as-needed transformations is especially helpful in providing responsive image `srcset` lists without the need for managing preprocessing of potentially dozens of variations of the same image to minimize data usage while maximizing image quality.
