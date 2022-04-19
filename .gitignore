@@ -1,0 +1,5 @@
+node_modules
+.obsidian
+.vscode
+.git
+.DS_store
