@@ -13,7 +13,6 @@ Images.get('/*.jpg', async (req: Request, res: Response) => {
     const [originalPath, cachedPath] = getPath(path, { width, height }, webp);
     if (!existsSync(originalPath)) throw 'File not found';
     if (existsSync(cachedPath)) {
-      console.log('returning cached image');
       const file = await fs.readFile(cachedPath);
       res
         .status(200)
@@ -24,14 +23,13 @@ Images.get('/*.jpg', async (req: Request, res: Response) => {
 
     const file = await fs.readFile(originalPath);
     if (!width && !height && !webp) {
-      console.log('sending original image');
       res
         .status(200)
         .contentType(`image/${webp ? 'webp' : 'jpg'}`)
         .send(file);
       return;
     }
-    console.log('processing new image');
+
     const result = await processImage(
       file,
       {
@@ -44,7 +42,7 @@ Images.get('/*.jpg', async (req: Request, res: Response) => {
       .status(200)
       .contentType(`image/${webp ? 'webp' : 'jpg'}`)
       .send(result);
-    console.log('caching new image');
+
     await fs.writeFile(cachedPath, result);
   } catch (e: any) {
     if (e.errno === -2) {
