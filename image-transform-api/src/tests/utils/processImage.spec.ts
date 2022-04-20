@@ -16,52 +16,52 @@ const filePath = path.join(
 const width = 100;
 const height = 100;
 
-describe('Squoosh Image Processor', () => {
+describe('Squoosh Image Processor', (): void => {
   let file: Buffer = undefined as unknown as Buffer;
-  beforeAll(async () => {
+  beforeAll(async (): Promise<void> => {
     file = await readFile(filePath);
   });
 
-  describe('Test Suite', () => {
-    it('loads the file', () => {
+  describe('Test Suite', (): void => {
+    it('loads the file', (): void => {
       expect(file).toBeTruthy();
     });
   });
 
-  describe('Image information handler', () => {
-    it('gets the image size', () => {
+  describe('Image information handler', (): void => {
+    it('gets the image size', (): void => {
       const { width, height } = getSize(file);
       expect(width).toBeGreaterThan(0);
       expect(height).toBeGreaterThan(0);
     });
 
-    it('gets the image ratio', () => {
+    it('gets the image ratio', (): void => {
       const ratio = getRatio(file);
       expect(ratio).toBeGreaterThan(0);
     });
   });
 
-  it('resizes images properly', async () => {
+  it('resizes images properly', async (): Promise<void> => {
     const processed = await processImage(file as Buffer, { width, height });
     const size = getSize(processed);
     expect(size.width).toBe(width);
     expect(size.height).toBe(height);
   });
 
-  it('maintains aspect ratio when resizing by height', async () => {
+  it('maintains aspect ratio when resizing by height', async (): Promise<void> => {
     const processed = await processImage(file as Buffer, { width: 0, height });
     const [outputRatio, originalRatio] = [getRatio(processed), getRatio(file)];
     expect(outputRatio).toBeCloseTo(originalRatio, 1);
   });
 
-  it('maintains aspect ratio when resizing by width', async () => {
+  it('maintains aspect ratio when resizing by width', async (): Promise<void> => {
     const processed = await processImage(file as Buffer, { width, height: 0 });
     const [outputRatio, originalRatio] = [getRatio(processed), getRatio(file)];
     expect(outputRatio).toBeCloseTo(originalRatio, 1);
   });
 
-  describe('Supports filetypes', () => {
-    it('jpg', async () => {
+  describe('Supports filetypes', (): void => {
+    it('jpg', async (): Promise<void> => {
       const processed = await processImage(
         file as Buffer,
         { width, height },
@@ -71,7 +71,7 @@ describe('Squoosh Image Processor', () => {
       expect(type).toBe('jpg');
     });
 
-    it('webp', async () => {
+    it('webp', async (): Promise<void> => {
       const processed = await processImage(
         file as Buffer,
         {
@@ -85,8 +85,8 @@ describe('Squoosh Image Processor', () => {
     });
   });
 
-  describe('Handles illegal values correctly', () => {
-    it('limits negative height', async () => {
+  describe('Handles illegal values correctly', (): void => {
+    it('limits negative height', async (): Promise<void> => {
       const processed = await processImage(file as Buffer, {
         width,
         height: -1,
@@ -98,7 +98,7 @@ describe('Squoosh Image Processor', () => {
       expect(outputRatio).toBeCloseTo(originalRatio, 1);
     });
 
-    it('limits negative width', async () => {
+    it('limits negative width', async (): Promise<void> => {
       const processed = await processImage(file as Buffer, {
         width: -1,
         height,
@@ -110,7 +110,7 @@ describe('Squoosh Image Processor', () => {
       expect(outputRatio).toBeCloseTo(originalRatio, 1);
     });
 
-    it('ignores infinity', async () => {
+    it('ignores infinity', async (): Promise<void> => {
       const processed = await processImage(file as Buffer, {
         width: 300,
         height: Infinity,
@@ -122,7 +122,7 @@ describe('Squoosh Image Processor', () => {
       expect(outputRatio).toBeCloseTo(originalRatio, 1);
     });
 
-    it('limits sizes to the original size', async () => {
+    it('limits sizes to the original size', async (): Promise<void> => {
       const processed = await processImage(file as Buffer, {
         width: 10000,
         height: 10000,

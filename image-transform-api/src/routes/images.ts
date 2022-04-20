@@ -4,7 +4,7 @@ import { getPath, processImage } from '../utils/index.js';
 
 const Images = Router();
 
-Images.get('/*.jpg', async (req: Request, res: Response) => {
+Images.get('/*.jpg', async (req: Request, res: Response): Promise<void> => {
   const { path, query } = req;
   const [width, height] = [Number(query.width), Number(query.height)];
   const webp = !!req.accepts('image/webp');

@@ -5,75 +5,75 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import { existsSync } from 'fs';
 
-describe('Server', () => {
-  it('connects', () => {
+describe('Server', (): void => {
+  it('connects', (): void => {
     supertest(app).get('/images/icelandwaterfall.jpg?width=100').expect(200);
   });
 
-  it('returns an image', () => {
+  it('returns an image', (): void => {
     supertest(app)
       .get('/images/icelandwaterfall.jpg?width=100')
       .expect(200)
       .expect('Content-Type', /image/);
   });
 
-  describe('Returns resized images', () => {
-    it('defined width', () => {
+  describe('Returns resized images', (): void => {
+    it('defined width', (): void => {
       supertest(app)
         .get('/images/icelandwaterfall.jpg?width=100')
         .expect(200)
-        .end((err, { body }) => {
+        .end((err, { body }): void => {
           expect(getSize(body).width).toBe(100);
         });
     });
 
-    it('defined height', () => {
+    it('defined height', (): void => {
       supertest(app)
         .get('/images/icelandwaterfall.jpg?height=100')
         .expect(200)
-        .end((err, { body }) => {
+        .end((err, { body }): void => {
           expect(getSize(body).height).toBe(100);
         });
     });
 
-    it('defined width and height', () => {
+    it('defined width and height', (): void => {
       supertest(app)
         .get('/images/icelandwaterfall.jpg?width=100&height=100')
         .expect(200)
-        .end((err, { body }) => {
+        .end((err, { body }): void => {
           expect(getSize(body).width).toBe(100);
           expect(getSize(body).height).toBe(100);
         });
     });
   });
 
-  describe('Returns correctly formatted images', () => {
-    it('webp', () => {
+  describe('Returns correctly formatted images', (): void => {
+    it('webp', (): void => {
       supertest(app)
         .get('/images/icelandwaterfall.jpg?width=100&height=100')
         .set('Accept', 'image/webp')
         .expect(200)
-        .end((err, { body }) => {
+        .end((err, { body }): void => {
           expect(getType(body)).toBe('webp');
         });
     });
 
-    it('jpg', () => {
+    it('jpg', (): void => {
       supertest(app)
         .get('/images/icelandwaterfall.jpg?width=100&height=100')
         .set('Accept', 'image/jpg')
         .expect(200)
-        .end((err, { body }) => {
+        .end((err, { body }): void => {
           expect(getType(body)).toBe('jpg');
         });
     });
   });
 
-  it('Caches repeat requests', () => {
+  it('Caches repeat requests', (): void => {
     supertest(app)
       .get('/images/icelandwaterfall.jpg?width=300')
       .expect(200)
-      .end(async () => {
+      .end(async (): Promise<void> => {
         const filePath = path.join(
           fileURLToPath(import.meta.url),
           '..',

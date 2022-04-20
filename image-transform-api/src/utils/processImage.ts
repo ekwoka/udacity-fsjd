@@ -15,9 +15,9 @@ export const processImage = async (
   file: Buffer,
   options: { width: number; height: number; [key: string]: any },
   webp?: boolean
-) => {
+): Promise<Buffer> => {
   const orig = getSize(file) as { [key: string]: any };
-  ['width', 'height'].forEach((key) => {
+  ['width', 'height'].forEach((key): void => {
     options[key] =
       options[key] <= 0 || options[key] === Infinity
         ? 0

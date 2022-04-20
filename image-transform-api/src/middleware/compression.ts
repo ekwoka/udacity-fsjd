@@ -5,26 +5,26 @@ export const compression = (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): void => {
   const _send = res.send.bind(res);
   res.send = (buffer: Buffer): Response => {
     if (req.acceptsEncodings('br')) {
       res.set('Content-Encoding', 'br');
-      brotli(buffer).then((compressed) => {
+      brotli(buffer).then((compressed): void => {
         _send(compressed);
       });
       return res;
     }
     if (req.acceptsEncodings('deflate')) {
       res.set('Content-Encoding', 'deflate');
-      deflate(buffer).then((compressed) => {
+      deflate(buffer).then((compressed): void => {
         _send(compressed);
       });
       return res;
     }
     if (req.acceptsEncodings('gzip')) {
       res.set('Content-Encoding', 'gzip');
-      gzip(buffer).then((compressed) => {
+      gzip(buffer).then((compressed): void => {
         _send(compressed);
       });
       return res;

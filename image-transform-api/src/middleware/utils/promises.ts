@@ -7,9 +7,9 @@ import {
 const promisify = <T>(
   fn: (arg: T, cb: (err: any, result: T) => void) => void
 ): ((arg: T) => Promise<T>) => {
-  return (arg: T) => {
-    return new Promise((res, rej) => {
-      fn(arg, (err: any, result: T) => {
+  return (arg: T): Promise<T> => {
+    return new Promise((res, rej): void => {
+      fn(arg, (err: any, result: T): void => {
         if (err) rej(err);
         res(result);
       });
