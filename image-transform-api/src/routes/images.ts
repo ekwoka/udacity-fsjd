@@ -45,7 +45,10 @@ Images.get('/*.jpg', async (req: Request, res: Response): Promise<void> => {
 
     await fs.writeFile(cachedPath, result);
   } catch (e: any) {
-    res.status(e.status).contentType('application/json').send(e.message);
+    console.log(e);
+    const status = e.status || 400;
+    const message = e.message || 'Bad Request';
+    res.status(status).contentType('application/json').send(message);
   }
 });
 
