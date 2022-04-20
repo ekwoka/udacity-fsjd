@@ -122,6 +122,18 @@ describe('Squoosh Image Processor', (): void => {
       expect(outputRatio).toBeCloseTo(originalRatio, 1);
     });
 
+    it('ignores non-numbers', async (): Promise<void> => {
+      const processed = await processImage(file as Buffer, {
+        width: 'a' as unknown as number, // coercion needed to bypass type-safety
+        height: 100,
+      });
+      const [outputRatio, originalRatio] = [
+        getRatio(processed),
+        getRatio(file),
+      ];
+      expect(outputRatio).toBeCloseTo(originalRatio, 1);
+    });
+
     it('limits sizes to the original size', async (): Promise<void> => {
       const processed = await processImage(file as Buffer, {
         width: 10000,

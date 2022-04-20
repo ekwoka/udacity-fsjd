@@ -85,4 +85,28 @@ describe('Server', (): void => {
         expect(existsSync(filePath)).toBe(true);
       });
   });
+
+  describe('Error handling', () => {
+    it('handles non-existent images', (): void => {
+      supertest(app)
+        .get('/images/tobymcquire.jpg?width=100')
+        .expect(404)
+        .end(({ rawResponse: error }, res): void => {
+          expect(res).toBeUndefined();
+          expect(error).toBe('Requested File does not exist');
+        });
+    });
+
+    it('handles non-image requests', (): void => {
+      supertest(app)
+        .get('/images/tobymcquire?width=100')
+        .expect(404)
+        .end((err, res): void => {
+          expect(res).toBeUndefined();
+          expect(err.rawResponse).toBe(
+            'Requested path is not an image file. Check path for file-extension'
+          );
+        });
+    });
+  });
 });
