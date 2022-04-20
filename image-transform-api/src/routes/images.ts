@@ -9,9 +9,9 @@ Images.get('/*.jpg', async (req: Request, res: Response): Promise<void> => {
   const [width, height] = [Number(query.width), Number(query.height)];
   const webp = !!req.accepts('image/webp');
   try {
-    if (!path.includes('.')) throw 'file does not exist';
     const [originalPath, cachedPath] = getPath(path, { width, height }, webp);
-    if (!existsSync(originalPath)) throw 'File not found';
+    if (!existsSync(originalPath))
+      throw { status: 404, message: 'Requested File does not exist' };
     if (existsSync(cachedPath)) {
       const file = await fs.readFile(cachedPath);
       res
@@ -45,13 +45,15 @@ Images.get('/*.jpg', async (req: Request, res: Response): Promise<void> => {
 
     await fs.writeFile(cachedPath, result);
   } catch (e: any) {
-    if (e.errno === -2) {
-      res.status(404).send('File not found');
-      return;
-    }
-    console.log(e);
-    res.status(416).send(e as string);
+    res.status(e.status).contentType('application/json').send(e.message);
   }
+});
+
+Images.get('/*', (_, res): void => {
+  res
+    .status(404)
+    .contentType('application/json')
+    .send('Requested path is not an image file. Check path for file-extension');
 });
 
 export { Images };

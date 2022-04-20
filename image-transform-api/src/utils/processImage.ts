@@ -18,12 +18,13 @@ export const processImage = async (
 ): Promise<Buffer> => {
   const orig = getSize(file) as { [key: string]: any };
   ['width', 'height'].forEach((key): void => {
+    const value = Number(options[key]);
     options[key] =
-      options[key] <= 0 || options[key] === Infinity
+      value <= 0 || value === Infinity || isNaN(value)
         ? 0
-        : options[key] >= orig[key]
+        : value >= orig[key]
         ? orig[key]
-        : options[key];
+        : value;
   });
   if (options.width === orig.width && options.height === orig.height) {
     return file;
