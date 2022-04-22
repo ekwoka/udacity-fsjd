@@ -38,17 +38,18 @@ Images.get('/*.jpg', async (req: Request, res: Response): Promise<void> => {
       },
       webp
     );
+    fs.writeFile(cachedPath, result);
     res
       .status(200)
       .contentType(`image/${webp ? 'webp' : 'jpg'}`)
       .send(result);
-
-    await fs.writeFile(cachedPath, result);
+    return;
   } catch (e: any) {
     console.log(e);
     const status = e.status || 400;
     const message = e.message || 'Bad Request';
     res.status(status).contentType('application/json').send(message);
+    return;
   }
 });
 
