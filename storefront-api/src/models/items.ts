@@ -1,7 +1,12 @@
 import { Client } from '../database';
 
 export type Item = {
-  id?: number;
+  id: number;
+  name: string;
+  description: string;
+};
+
+export type ItemPartial = {
   name: string;
   description: string;
 };
@@ -31,7 +36,7 @@ export const ItemStore = {
       return { id: 0, name: '', description: '' };
     }
   },
-  async create({ name, description }: Item): Promise<Item> {
+  async create({ name, description }: ItemPartial): Promise<Item> {
     try {
       const connection = await Client.connect();
       const query = `INSERT INTO items (name, description) VALUES ($1, $2) RETURNING *`;
