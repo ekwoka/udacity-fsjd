@@ -92,20 +92,17 @@ export const UserStore = {
       return { id: 0, username: '', email: '', password: '' };
     }
   },
-  async authenticate({
-    email,
-    password,
-  }: UserPartial): Promise<{ id: string } | null> {
+  async authenticate({ email, password }: UserPartial): Promise<string | null> {
     try {
       const connection = await Client.connect();
       const query = `SELECT * FROM users WHERE email = $1`;
       const result = await connection.query(query, [email]);
       connection.release();
       if (!result.rows.length) throw `No users found with email ${email}`;
-      const { id, password_digest } = result.rows[0];
+      const { id, role, password_digest } = result.rows[0];
       if (!(await compareSalted(password, password_digest)))
         throw `Incorrect password`;
-      return { id };
+      return createJWT({ id, email, role });
     } catch (e) {
       console.log(e);
       return null;
