@@ -1,20 +1,22 @@
 # Storefront Backend Project
 
+## Quick Start
+
+```bash
+pnpm i && pnpm run setup
+```
+
+This will install dependencies, build the docker containers, create the database, and generate cryptographic keys. Afterwards it will run the test suite to build and test the code to ensure everything is working as expected.
+
 ## Crypto Keys
 
-This project uses a RS256 Private/Public Key pair for signing and verifying JWT tokens. These keys are not included with in this repository.
+This project uses a RS256 Private/Public Key pair for signing and verifying JWT tokens. These keys are not included with in this repository. They are automatically generated during the setup process, however, if you want to separately create them or refresh them, you can do so by running the following command:
 
-To create your own keys simply run:
-
-```
+```bash
 pnpm createkeys
 ```
 
-> Note: this requires `ssh-keygen` to be installed on your system
-
-## Getting Started
-
-This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.
+> Note: this requires `ssh-keygen` and `openssl` to be installed on your system
 
 ## Required Technologies
 
