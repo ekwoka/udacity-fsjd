@@ -26,6 +26,5 @@ It was nice to do this myself. The project felt appropriate for what was taught 
 
 I did have trouble using relative paths to some `fs` methods and needed to resort to some rather ugly path resolution code, but it all functions well enough.
 
-
-
+Overall, if you're familiar with the technologies used, you should have very little challenge blowing through this first section.
 
