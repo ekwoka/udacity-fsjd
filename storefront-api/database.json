@@ -22,5 +22,6 @@
     "database": "postgres",
     "user": "full_stack_user",
     "password": "password123"
-  }
+  },
+  "sql-file": true
 }
