@@ -29,7 +29,7 @@ Users.post(
       if (!body.email || !body.password) throw 'Missing email or password';
       const response = await authenticate(body);
       if (!response) throw 'Invalid email or password';
-      res.json(response);
+      res.json({ token: response });
     } catch (e) {
       res.status(401).json({
         error: e,

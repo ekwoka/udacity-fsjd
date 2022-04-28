@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import { VerifyAuthToken } from '../middleware/verifyAuthToken';
 import { ItemStore } from '../models/items';
 
 const Items = Router();
@@ -16,14 +17,19 @@ Items.get('/:id', async ({ params }: Request, res: Response): Promise<void> => {
   return;
 });
 
-Items.post('/', async (req: Request, res: Response): Promise<void> => {
-  const response = await create(req.body);
-  res.json(response);
-  return;
-});
+Items.post(
+  '/',
+  VerifyAuthToken,
+  async (req: Request, res: Response): Promise<void> => {
+    const response = await create(req.body);
+    res.json(response);
+    return;
+  }
+);
 
 Items.put(
   '/:id',
+  VerifyAuthToken,
   async ({ params, body }: Request, res: Response): Promise<void> => {
     const item = {
       ...body,
@@ -37,6 +43,7 @@ Items.put(
 
 Items.delete(
   '/:id',
+  VerifyAuthToken,
   async ({ params }: Request, res: Response): Promise<void> => {
     const response = await remove(Number(params.id));
     res.json(response);
