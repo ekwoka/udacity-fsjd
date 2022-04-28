@@ -1,18 +1,21 @@
 import { app } from '../../server';
 import supertest from 'supertest';
-import { Item, ItemStore } from '../../models/items';
+import { Item, ItemPartial, ItemStore } from '../../models/items';
+import { createJWT } from '../../utils';
 
 describe('/items Route', () => {
   const { create } = ItemStore;
   let testItems: Item[];
+  let token: string;
   beforeAll(async () => {
-    const testItem: Item = {
+    const testItem: ItemPartial = {
       name: 'before all items',
       description: 'testing the server api',
     };
     testItems = await Promise.all(
       Array.from({ length: 3 }, async () => create(testItem))
     );
+    token = await createJWT({ id: 1 });
   });
   it('should return a 200 response', () => {
     supertest(app).get('/items').expect(200);
@@ -34,22 +37,26 @@ describe('/items Route', () => {
     expect(body.description).toBe(description);
   });
   it('POST / creates an item', async () => {
-    const testItem: Item = {
+    const testItem: ItemPartial = {
       name: 'test Post create',
       description: 'testing the create method',
     };
-    const { status, body } = await supertest(app).post('/items').send(testItem);
+    const { status, body } = await supertest(app)
+      .post('/items')
+      .set('Authorization', `Bearer ${token}`)
+      .send(testItem);
     expect(status).toBe(200);
     expect(body.name).toBe(testItem.name);
   });
   it('PUT /:id updates an item', async () => {
     const { id } = testItems[1];
-    const testItem: Item = {
+    const testItem: ItemPartial = {
       name: 'test update',
       description: 'testing the update method',
     };
     const { status, body } = await supertest(app)
       .put(`/items/${id}`)
+      .set('Authorization', `Bearer ${token}`)
       .send(testItem);
     expect(status).toBe(200);
     expect(body.name).toBe(testItem.name);
@@ -57,10 +64,38 @@ describe('/items Route', () => {
   });
   it('DELETE /:id removes an item', async () => {
     const { id, name, description } = testItems[2];
-    const { status, body } = await supertest(app).delete(`/items/${id}`);
+    const { status, body } = await supertest(app)
+      .delete(`/items/${id}`)
+      .set('Authorization', `Bearer ${token}`);
     expect(status).toBe(200);
     expect(body.id).toBe(id);
     expect(body.name).toBe(name);
     expect(body.description).toBe(description);
+  });
+  describe('Rejects unauthorized requests', () => {
+    it('POST', async () => {
+      const testItem: ItemPartial = {
+        name: 'test Post create',
+        description: 'testing the create method',
+      };
+      const { status } = await supertest(app).post('/items').send(testItem);
+      expect(status).toBe(401);
+    });
+    it('PUT', async () => {
+      const { id } = testItems[1];
+      const testItem: ItemPartial = {
+        name: 'test update',
+        description: 'testing the update method',
+      };
+      const { status } = await supertest(app)
+        .put(`/items/${id}`)
+        .send(testItem);
+      expect(status).toBe(401);
+    });
+    it('DELETE', async () => {
+      const { id } = testItems[2];
+      const { status } = await supertest(app).delete(`/items/${id}`);
+      expect(status).toBe(401);
+    });
   });
 });
