@@ -12,7 +12,7 @@ describe('UserStore Model', () => {
       expect(index).toBeDefined();
       const items = await index();
       expect(items).toBeDefined();
-      expect(items).toEqual([]);
+      expect(Array.isArray(items)).toBeTrue();
     });
     let testID: number;
     it('creates new user', async () => {
@@ -20,7 +20,7 @@ describe('UserStore Model', () => {
       const token = await create({
         username: 'testcreate',
         password: 'badpassword',
-        email: 'test@test.com',
+        email: 'test@Jasmine.com',
       });
       expect(token).toBeDefined();
       expect(typeof token).toBe('string');
@@ -39,7 +39,7 @@ describe('UserStore Model', () => {
         id: testID,
         username: 'test update',
         password: 'worsepassword',
-        email: 'test@test.com',
+        email: 'test@Jasmine.com',
       });
       const { username } = await get(testID);
       expect(token).toBeDefined();
@@ -50,7 +50,7 @@ describe('UserStore Model', () => {
     it('authenticates correct passwords and returns JWT', async () => {
       expect(authenticate).toBeDefined();
       const response = await authenticate({
-        email: 'test@test.com',
+        email: 'test@Jasmine.com',
         password: 'worsepassword',
       });
       expect(response).not.toBeNull();

@@ -5,9 +5,9 @@ import { verifyJWT } from '../../utils/crypto/jwt';
 describe('/users route', () => {
   it('should register new users', async () => {
     const { status, body } = await supertest(app).post('/users/register').send({
-      username: 'test',
+      username: 'test route',
       password: 'test',
-      email: 'test@test.com',
+      email: 'test@route.com',
     });
     expect(status).toBe(200);
     expect(body).toBeDefined();
@@ -26,7 +26,7 @@ describe('/users route', () => {
 
   it('should not register users with missing fields', async () => {
     const { status, body } = await supertest(app).post('/users/register').send({
-      username: 'test',
+      username: 'test no email',
       password: 'test',
     });
     expect(status).toBe(400);
@@ -38,7 +38,7 @@ describe('/users route', () => {
       const { status, body } = await supertest(app)
         .post('/users/authenticate')
         .send({
-          email: 'test@test.com',
+          email: 'test@route.com',
           password: 'test',
         });
       expect(status).toBe(200);
@@ -48,7 +48,7 @@ describe('/users route', () => {
       const { status, body } = await supertest(app)
         .post('/users/authenticate')
         .send({
-          email: 'test@test.com',
+          email: 'test@route.com',
           password: 'badpassword',
         });
       expect(status).toBe(401);
@@ -56,7 +56,7 @@ describe('/users route', () => {
     });
     it('should return JWT on successful auth', async () => {
       const { body } = await supertest(app).post('/users/authenticate').send({
-        email: 'test@test.com',
+        email: 'test@route.com',
         password: 'test',
       });
       expect(body.token).toBeDefined();

@@ -8,27 +8,17 @@ import {
   User,
   UserStore,
 } from '../../models';
-import { verifyJWT } from '../../utils';
+import { database } from '../helpers/databaseSetup';
 
 describe('/orders Route', () => {
-  const testOrders: Order[] = [];
+  let testOrders: Order[];
   let testItem: Item;
   let testUser: User;
   beforeAll(async () => {
-    const user = await UserStore.create({
-      username: 'Repunzel',
-      password: '12345',
-      email: 'long@hair.com',
-    });
-    testUser = (await verifyJWT(user as string)) as User;
+    await database();
+    testUser = (await UserStore.index())[0];
     testItem = (await ItemStore.index())[0];
-    await Promise.all(
-      Array.from({ length: 3 }, async () =>
-        testOrders.push(
-          (await OrderStore.create(testUser.id as number)) as Order
-        )
-      )
-    );
+    testOrders = await OrderStore.index();
   });
   it('GET / should return array of orders', async () => {
     const { status, body } = await supertest(app).get('/orders');

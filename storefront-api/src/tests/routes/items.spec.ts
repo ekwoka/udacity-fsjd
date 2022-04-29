@@ -2,19 +2,16 @@ import { app } from '../../server';
 import supertest from 'supertest';
 import { Item, ItemPartial, ItemStore } from '../../models/items';
 import { createJWT } from '../../utils';
+import { database } from '../helpers/databaseSetup';
 
 describe('/items Route', () => {
-  const { create } = ItemStore;
+  const { index } = ItemStore;
   let testItems: Item[];
+  let testItem: Item;
   let token: string;
   beforeAll(async () => {
-    const testItem: ItemPartial = {
-      name: 'before all items',
-      description: 'testing the server api',
-    };
-    testItems = await Promise.all(
-      Array.from({ length: 3 }, async () => create(testItem))
-    );
+    await database();
+    testItems = await index();
     token = await createJWT({ id: 1 });
   });
   it('should return a 200 response', () => {
@@ -24,9 +21,6 @@ describe('/items Route', () => {
     const { status, body } = await supertest(app).get('/items');
     expect(status).toBe(200);
     expect(Array.isArray(body)).toBe(true);
-    expect(body.some((item: Item) => item.name === 'before all items')).toBe(
-      true
-    );
   });
   it('GET /:id returns an item', async () => {
     const { id, name, description } = testItems[0];
@@ -37,33 +31,35 @@ describe('/items Route', () => {
     expect(body.description).toBe(description);
   });
   it('POST / creates an item', async () => {
-    const testItem: ItemPartial = {
+    const test: ItemPartial = {
       name: 'test Post create',
       description: 'testing the create method',
     };
     const { status, body } = await supertest(app)
       .post('/items')
       .set('Authorization', `Bearer ${token}`)
-      .send(testItem);
+      .send(test);
     expect(status).toBe(200);
-    expect(body.name).toBe(testItem.name);
+    expect(body.name).toBe(test.name);
+    testItem = body;
   });
   it('PUT /:id updates an item', async () => {
-    const { id } = testItems[1];
-    const testItem: ItemPartial = {
+    const { id } = testItem;
+    const test: ItemPartial = {
       name: 'test update',
       description: 'testing the update method',
     };
     const { status, body } = await supertest(app)
       .put(`/items/${id}`)
       .set('Authorization', `Bearer ${token}`)
-      .send(testItem);
+      .send(test);
     expect(status).toBe(200);
-    expect(body.name).toBe(testItem.name);
-    expect(body.description).toBe(testItem.description);
+    expect(body.name).toBe(test.name);
+    expect(body.description).toBe(test.description);
+    testItem = body;
   });
   it('DELETE /:id removes an item', async () => {
-    const { id, name, description } = testItems[2];
+    const { id, name, description } = testItem;
     const { status, body } = await supertest(app)
       .delete(`/items/${id}`)
       .set('Authorization', `Bearer ${token}`);
@@ -93,7 +89,7 @@ describe('/items Route', () => {
       expect(status).toBe(401);
     });
     it('DELETE', async () => {
-      const { id } = testItems[2];
+      const { id } = testItems[0];
       const { status } = await supertest(app).delete(`/items/${id}`);
       expect(status).toBe(401);
     });
