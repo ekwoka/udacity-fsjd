@@ -11,6 +11,18 @@ export type Order = {
 };
 
 export const OrderStore = {
+  async index(): Promise<Order[]> {
+    try {
+      const connection = await Client.connect();
+      const query = `SELECT * FROM orders`;
+      const result = await connection.query(query);
+      connection.release();
+      return result.rows as Order[];
+    } catch (e) {
+      console.log(e);
+      return [];
+    }
+  },
   async get(id: number): Promise<Order | null> {
     try {
       const connection = await Client.connect();
@@ -72,6 +84,8 @@ export const OrderStore = {
   ): Promise<Order | null> {
     try {
       const connection = await Client.connect();
+      const { status } = (await OrderStore.get(order_id)) as Order;
+      if (status === 'closed') throw 'Order is closed';
       const query = `INSERT INTO order_items (order_id, item_id, quantity) VALUES ($1, $2, $3) RETURNING *`;
       const result = await connection.query(query, [
         order_id,

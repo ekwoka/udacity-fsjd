@@ -52,7 +52,7 @@ describe('/orders Route', () => {
     const { id } = testOrders[0];
     const { status, body } = await supertest(app)
       .put(`/orders/${id}`)
-      .send({ item_id: testItem.id, quantity: 1 });
+      .send({ order_id: id, item_id: testItem.id, quantity: 1 });
     expect(status).toBe(200);
     expect(body.items.length).toBe(1);
   });
