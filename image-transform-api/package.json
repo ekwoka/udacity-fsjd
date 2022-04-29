@@ -87,5 +87,6 @@
   "prettier": {
     "singleQuote": true,
     "bracketSameLine": true
-  }
+  },
+  "version": "1.0.0"
 }
