@@ -1,0 +1,2 @@
+ALTER TABLE items
+ADD price int NOT NULL DEFAULT 0;
