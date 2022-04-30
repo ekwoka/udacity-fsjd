@@ -16,6 +16,6 @@ describe('Dashboard Service', () => {
     const users = await Dashboard.usersWithMostOpenOrders();
     expect(Array.isArray(users)).toBeTrue();
     expect(users[0]).toBeDefined();
-    expect(users[0].email).toBeDefined();
+    expect(users[0].user_id).toBeDefined();
   });
 });
