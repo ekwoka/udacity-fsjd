@@ -12,7 +12,7 @@ const corsOptions: CorsOptions = {
 
 app.use([bodyParser.json(), cors(corsOptions)]);
 
-app.use('/items', Products);
+app.use('/products', Products);
 app.use('/users', Users);
 app.use('/orders', Orders);
 app.use('/services', Services);

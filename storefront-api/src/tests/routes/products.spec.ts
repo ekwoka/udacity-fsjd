@@ -9,7 +9,7 @@ import {
 import { createJWT } from '../../utils';
 import { database } from '../helpers/databaseSetup';
 
-describe('/items Route', () => {
+describe('/products Route', () => {
   const { index } = ProductStore;
   let testProducts: ProductDB[];
   let testProduct: ProductDB;
@@ -26,16 +26,16 @@ describe('/items Route', () => {
     });
   });
   it('should return a 200 response', () => {
-    supertest(app).get('/items').expect(200);
+    supertest(app).get('/products').expect(200);
   });
   it('GET / should return array of items', async () => {
-    const { status, body } = await supertest(app).get('/items');
+    const { status, body } = await supertest(app).get('/products');
     expect(status).toBe(200);
     expect(Array.isArray(body)).toBe(true);
   });
   it('GET /:id returns an item', async () => {
     const { id, name, price } = testProducts[0];
-    const { status, body } = await supertest(app).get(`/items/${id}`);
+    const { status, body } = await supertest(app).get(`/products/${id}`);
     expect(status).toBe(200);
     expect(body.id).toBe(id);
     expect(body.name).toBe(name);
@@ -47,7 +47,7 @@ describe('/items Route', () => {
       price: 15.68,
     };
     const { status, body } = await supertest(app)
-      .post('/items')
+      .post('/products')
       .set('Authorization', `Bearer ${token}`)
       .send(test);
     expect(status).toBe(200);
@@ -61,7 +61,7 @@ describe('/items Route', () => {
       name: 'test update',
     };
     const { status, body } = await supertest(app)
-      .put(`/items/${id}`)
+      .put(`/products/${id}`)
       .set('Authorization', `Bearer ${token}`)
       .send(test);
     expect(status).toBe(200);
@@ -72,7 +72,7 @@ describe('/items Route', () => {
   it('DELETE /:id removes an item', async () => {
     const { id, name, price } = testProduct;
     const { status, body } = await supertest(app)
-      .delete(`/items/${id}`)
+      .delete(`/products/${id}`)
       .set('Authorization', `Bearer ${token}`);
     expect(status).toBe(200);
     expect(body.id).toBe(id);
@@ -85,7 +85,9 @@ describe('/items Route', () => {
         name: 'test Post create',
         price: 3.5,
       };
-      const { status } = await supertest(app).post('/items').send(testProduct);
+      const { status } = await supertest(app)
+        .post('/products')
+        .send(testProduct);
       expect(status).toBe(401);
     });
     it('PUT', async () => {
@@ -95,13 +97,13 @@ describe('/items Route', () => {
         name: 'test update',
       };
       const { status } = await supertest(app)
-        .put(`/items/${id}`)
+        .put(`/products/${id}`)
         .send(testProduct);
       expect(status).toBe(401);
     });
     it('DELETE', async () => {
       const { id } = testProducts[0];
-      const { status } = await supertest(app).delete(`/items/${id}`);
+      const { status } = await supertest(app).delete(`/products/${id}`);
       expect(status).toBe(401);
     });
   });
