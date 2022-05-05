@@ -55,7 +55,7 @@ export const database = () => {
 };
 
 let inprogress = false;
-const performSetup = async () => {
+const performSetup = async (): Promise<void> => {
   if (inprogress) return;
   inprogress = true;
   console.log('Populating Database for Test Environment...');

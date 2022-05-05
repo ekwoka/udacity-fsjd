@@ -8,7 +8,7 @@ describe('OrderStore Model', () => {
     let testProductID: number;
     let testUserID: number;
     let testOrderID: number;
-    beforeAll(async () => {
+    beforeAll(async (): Promise<void> => {
       await database();
       const [items, users] = await Promise.all([
         await ProductStore.index(),
@@ -17,7 +17,7 @@ describe('OrderStore Model', () => {
       testProductID = items[0].id as number;
       testUserID = users[0].id as number;
     });
-    it('initializes new order', async () => {
+    it('initializes new order', async (): Promise<void> => {
       expect(create).toBeDefined();
       const { id, user_id, status } = (await create(testUserID)) as Order;
       expect(id).toBeDefined();
@@ -25,18 +25,18 @@ describe('OrderStore Model', () => {
       expect(status).toBe('active');
       testOrderID = id;
     });
-    it('retrieves order', async () => {
+    it('retrieves order', async (): Promise<void> => {
       expect(get).toBeDefined();
       const { user_id, status } = (await get(testOrderID)) as Order;
       expect(user_id).toBe(testUserID);
       expect(status).toBe('active');
     });
-    it('updates item', async () => {
+    it('updates item', async (): Promise<void> => {
       expect(update).toBeDefined();
       const { updated_at } = (await update(testOrderID)) as Order;
       expect(updated_at).toBeCloseTo(Date.now(), -10);
     });
-    it('adds an item to an order', async () => {
+    it('adds an item to an order', async (): Promise<void> => {
       expect(addProduct).toBeDefined();
       const { items } = (await addProduct(
         testOrderID,

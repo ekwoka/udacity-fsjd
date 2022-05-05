@@ -5,7 +5,7 @@ import { database } from '../helpers/databaseSetup';
 
 describe('/users route', () => {
   let token: string;
-  beforeAll(async () => {
+  beforeAll(async (): Promise<void> => {
     await database();
     token = await createJWT({
       id: 1,
@@ -15,7 +15,7 @@ describe('/users route', () => {
       email: 'tony@montana.com',
     });
   });
-  it('should return all users', async () => {
+  it('should return all users', async (): Promise<void> => {
     const { status, body } = await supertest(app)
       .get('/users')
       .set('Authorization', `Bearer ${token}`);
@@ -23,14 +23,14 @@ describe('/users route', () => {
     expect(Array.isArray(body)).toBeTrue();
     expect(body[0].id).toBeDefined();
   });
-  it('should return a specific user', async () => {
+  it('should return a specific user', async (): Promise<void> => {
     const { status, body } = await supertest(app)
       .get('/users/1')
       .set('Authorization', `Bearer ${token}`);
     expect(status).toBe(200);
     expect(body.id).toBeDefined();
   });
-  it('should register new users', async () => {
+  it('should register new users', async (): Promise<void> => {
     const { status, body } = await supertest(app).post('/users/register').send({
       first_name: 'test',
       last_name: 'route',
@@ -42,7 +42,7 @@ describe('/users route', () => {
     expect(body).toBeDefined();
   });
 
-  it('should return JWT on registration', async () => {
+  it('should return JWT on registration', async (): Promise<void> => {
     const { body } = await supertest(app).post('/users/register').send({
       first_name: 'tester',
       last_name: 'testing',
@@ -55,7 +55,7 @@ describe('/users route', () => {
     expect(decoded).toBeTruthy();
   });
 
-  it('should not register users with missing fields', async () => {
+  it('should not register users with missing fields', async (): Promise<void> => {
     const { status, body } = await supertest(app).post('/users/register').send({
       first_name: 'test',
       last_name: 'no email',
@@ -66,7 +66,7 @@ describe('/users route', () => {
   });
 
   describe('should authenticate users', () => {
-    it('with correct credentials', async () => {
+    it('with correct credentials', async (): Promise<void> => {
       const { status, body } = await supertest(app)
         .post('/users/authenticate')
         .send({
@@ -76,7 +76,7 @@ describe('/users route', () => {
       expect(status).toBe(200);
       expect(body).toBeDefined();
     });
-    it('with incorrect credentials', async () => {
+    it('with incorrect credentials', async (): Promise<void> => {
       const { status, body } = await supertest(app)
         .post('/users/authenticate')
         .send({
@@ -86,7 +86,7 @@ describe('/users route', () => {
       expect(status).toBe(401);
       expect(body.error).toBeDefined();
     });
-    it('should return JWT on successful auth', async () => {
+    it('should return JWT on successful auth', async (): Promise<void> => {
       const { body } = await supertest(app).post('/users/authenticate').send({
         email: 'test@route.com',
         password: 'test',
@@ -97,11 +97,11 @@ describe('/users route', () => {
     });
   });
   describe('requires Auth on select Routes', () => {
-    it('should return all users', async () => {
+    it('should return all users', async (): Promise<void> => {
       const { status } = await supertest(app).get('/users');
       expect(status).toBe(401);
     });
-    it('should return a specific user', async () => {
+    it('should return a specific user', async (): Promise<void> => {
       const { status } = await supertest(app).get('/users/1');
       expect(status).toBe(401);
     });

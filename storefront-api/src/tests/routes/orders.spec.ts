@@ -16,14 +16,14 @@ describe('/orders Route', () => {
   let testProduct: ProductDB;
   let testUser: UserReturn;
   let token: string;
-  beforeAll(async () => {
+  beforeAll(async (): Promise<void> => {
     await database();
     testUser = (await UserStore.index())[0];
     testProduct = (await ProductStore.index())[0];
     testOrders = await OrderStore.index();
     token = await createJWT(testUser);
   });
-  it('GET / should return orders from user', async () => {
+  it('GET / should return orders from user', async (): Promise<void> => {
     const { status, body } = await supertest(app)
       .get('/orders')
       .set('Authorization', `Bearer ${token}`);
@@ -35,7 +35,7 @@ describe('/orders Route', () => {
       ).length
     );
   });
-  it('GET /:id returns a specific order', async () => {
+  it('GET /:id returns a specific order', async (): Promise<void> => {
     const { id } = testOrders[0];
     const { status, body } = await supertest(app)
       .get(`/orders/${id}`)
@@ -43,7 +43,7 @@ describe('/orders Route', () => {
     expect(status).toBe(200);
     expect(body.id).toBe(id);
   });
-  it('POST / creates an order', async () => {
+  it('POST / creates an order', async (): Promise<void> => {
     const { status, body } = await supertest(app)
       .post('/orders')
       .set('Authorization', `Bearer ${token}`)
@@ -51,7 +51,7 @@ describe('/orders Route', () => {
     expect(status).toBe(200);
     expect(body.status).toBe('active');
   });
-  it('PUT /:id updates an order', async () => {
+  it('PUT /:id updates an order', async (): Promise<void> => {
     const { id } = testOrders[0];
     const { status, body } = await supertest(app)
       .put(`/orders/${id}`)

@@ -14,7 +14,7 @@ describe('/products Route', () => {
   let testProducts: ProductDB[];
   let testProduct: ProductDB;
   let token: string;
-  beforeAll(async () => {
+  beforeAll(async (): Promise<void> => {
     await database();
     testProducts = await index();
     token = await createJWT({
@@ -28,12 +28,12 @@ describe('/products Route', () => {
   it('should return a 200 response', () => {
     supertest(app).get('/products').expect(200);
   });
-  it('GET / should return array of items', async () => {
+  it('GET / should return array of items', async (): Promise<void> => {
     const { status, body } = await supertest(app).get('/products');
     expect(status).toBe(200);
     expect(Array.isArray(body)).toBe(true);
   });
-  it('GET /:id returns an item', async () => {
+  it('GET /:id returns an item', async (): Promise<void> => {
     const { id, name, price } = testProducts[0];
     const { status, body } = await supertest(app).get(`/products/${id}`);
     expect(status).toBe(200);
@@ -41,7 +41,7 @@ describe('/products Route', () => {
     expect(body.name).toBe(name);
     expect(body.price).toBe(price);
   });
-  it('POST / creates an item', async () => {
+  it('POST / creates an item', async (): Promise<void> => {
     const test: ProductData = {
       name: 'test Post create',
       price: 15.68,
@@ -54,7 +54,7 @@ describe('/products Route', () => {
     expect(body.name).toBe(test.name);
     testProduct = body;
   });
-  it('PUT /:id updates an item', async () => {
+  it('PUT /:id updates an item', async (): Promise<void> => {
     const { id } = testProduct;
     const test: ProductUpdate = {
       id,
@@ -69,7 +69,7 @@ describe('/products Route', () => {
     expect(body.price).toBe(testProduct.price);
     testProduct = body;
   });
-  it('DELETE /:id removes an item', async () => {
+  it('DELETE /:id removes an item', async (): Promise<void> => {
     const { id, name, price } = testProduct;
     const { status, body } = await supertest(app)
       .delete(`/products/${id}`)
@@ -80,7 +80,7 @@ describe('/products Route', () => {
     expect(body.price).toBe(price);
   });
   describe('Rejects unauthorized requests', () => {
-    it('POST', async () => {
+    it('POST', async (): Promise<void> => {
       const testProduct: ProductData = {
         name: 'test Post create',
         price: 3.5,
@@ -90,7 +90,7 @@ describe('/products Route', () => {
         .send(testProduct);
       expect(status).toBe(401);
     });
-    it('PUT', async () => {
+    it('PUT', async (): Promise<void> => {
       const { id } = testProducts[1];
       const testProduct: ProductUpdate = {
         id,
@@ -101,7 +101,7 @@ describe('/products Route', () => {
         .send(testProduct);
       expect(status).toBe(401);
     });
-    it('DELETE', async () => {
+    it('DELETE', async (): Promise<void> => {
       const { id } = testProducts[0];
       const { status } = await supertest(app).delete(`/products/${id}`);
       expect(status).toBe(401);

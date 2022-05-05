@@ -2,7 +2,7 @@ import { UserReturn } from '../../../models';
 import { createJWT, verifyJWT } from '../../../utils/crypto/jwt';
 
 describe('JWT Cryptography', () => {
-  it('creates JWTs from Objects', async () => {
+  it('creates JWTs from Objects', async (): Promise<void> => {
     const payload: UserReturn = {
       id: 1,
       first_name: 'test',
@@ -15,7 +15,7 @@ describe('JWT Cryptography', () => {
     expect(typeof token).toBe('string');
   });
 
-  it('verifies JWTs', async () => {
+  it('verifies JWTs', async (): Promise<void> => {
     const payload: UserReturn = {
       id: 1,
       first_name: 'test',
@@ -28,7 +28,7 @@ describe('JWT Cryptography', () => {
     expect(verified).toBeDefined();
     expect(verified?.email).toEqual('jwt@test.com');
   });
-  it('rejects modified JWTs', async () => {
+  it('rejects modified JWTs', async (): Promise<void> => {
     const payload: UserReturn = {
       id: 1,
       first_name: 'test',

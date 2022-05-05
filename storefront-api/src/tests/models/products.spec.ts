@@ -10,13 +10,13 @@ describe('ProductStore Model', () => {
 
   describe('has functional methods', () => {
     let testProduct: ProductDB;
-    it('indexes products', async () => {
+    it('indexes products', async (): Promise<void> => {
       expect(index).toBeDefined();
       const products = await index();
       expect(products).toBeDefined();
       expect(Array.isArray(products)).toBeTrue();
     });
-    it('creates new product', async () => {
+    it('creates new product', async (): Promise<void> => {
       expect(create).toBeDefined();
       const product = (await create({
         name: 'testcreate',
@@ -25,13 +25,13 @@ describe('ProductStore Model', () => {
       expect(product.id).toBeDefined();
       testProduct = product;
     });
-    it('gets product', async () => {
+    it('gets product', async (): Promise<void> => {
       expect(get).toBeDefined();
       const { name } = (await get(testProduct.id)) as ProductDB;
       expect(name).toBeDefined();
       expect(name).toBe('testcreate');
     });
-    it('updates product', async () => {
+    it('updates product', async (): Promise<void> => {
       expect(update).toBeDefined();
       const { name } = (await update({
         id: testProduct.id,
@@ -41,7 +41,7 @@ describe('ProductStore Model', () => {
       expect(name).toBeDefined();
       expect(name).toBe('test update');
     });
-    it('removes product', async () => {
+    it('removes product', async (): Promise<void> => {
       expect(remove).toBeDefined();
       const product = (await remove(testProduct.id)) as ProductDB;
       expect(product).toBeDefined();
