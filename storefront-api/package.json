@@ -11,7 +11,7 @@
     "jasmine": "ENV=test jasmine",
     "lint": "tsc && eslint --fix src && prettier --write src",
     "start": "nodemon src/server.ts",
-    "serve": "node dist/index.js",
+    "serve": "node dist/server.js",
     "pretest": "pnpm cleantest; db-migrate db:create full_stack_test; db-migrate --e test up",
     "cleantest": "db-migrate db:drop full_stack_test",
     "tsc": "tsc",
