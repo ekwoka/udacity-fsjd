@@ -1,8 +1,35 @@
 import supertest from 'supertest';
 import { app } from '../../server';
-import { verifyJWT } from '../../utils/crypto/jwt';
+import { createJWT, verifyJWT } from '../../utils/crypto/jwt';
+import { database } from '../helpers/databaseSetup';
 
 describe('/users route', () => {
+  let token: string;
+  beforeAll(async () => {
+    await database();
+    token = await createJWT({
+      id: 1,
+      first_name: 'Tony',
+      last_name: 'Monstana',
+      role: 'admin',
+      email: 'tony@montana.com',
+    });
+  });
+  it('should return all users', async () => {
+    const { status, body } = await supertest(app)
+      .get('/users')
+      .set('Authorization', `Bearer ${token}`);
+    expect(status).toBe(200);
+    expect(Array.isArray(body)).toBeTrue();
+    expect(body[0].id).toBeDefined();
+  });
+  it('should return a specific user', async () => {
+    const { status, body } = await supertest(app)
+      .get('/users/1')
+      .set('Authorization', `Bearer ${token}`);
+    expect(status).toBe(200);
+    expect(body.id).toBeDefined();
+  });
   it('should register new users', async () => {
     const { status, body } = await supertest(app).post('/users/register').send({
       first_name: 'test',
@@ -67,6 +94,16 @@ describe('/users route', () => {
       expect(body.token).toBeDefined();
       const decoded = await verifyJWT(body.token);
       expect(decoded).toBeTruthy();
+    });
+  });
+  describe('requires Auth on select Routes', () => {
+    it('should return all users', async () => {
+      const { status } = await supertest(app).get('/users');
+      expect(status).toBe(401);
+    });
+    it('should return a specific user', async () => {
+      const { status } = await supertest(app).get('/users/1');
+      expect(status).toBe(401);
     });
   });
 });
