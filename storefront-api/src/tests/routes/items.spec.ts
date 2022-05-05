@@ -12,7 +12,13 @@ describe('/items Route', () => {
   beforeAll(async () => {
     await database();
     testItems = await index();
-    token = await createJWT({ id: 1 });
+    token = await createJWT({
+      id: 1,
+      first_name: 'test',
+      last_name: 'user',
+      email: 'jwt@test.com',
+      role: 'user',
+    });
   });
   it('should return a 200 response', () => {
     supertest(app).get('/items').expect(200);

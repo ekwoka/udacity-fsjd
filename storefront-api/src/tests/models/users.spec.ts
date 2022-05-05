@@ -1,4 +1,4 @@
-import { User, UserStore } from '../../models';
+import { UserReturn, UserStore } from '../../models';
 import dotenv from 'dotenv';
 import { verifyJWT } from '../../utils/crypto/jwt';
 
@@ -18,40 +18,40 @@ describe('UserStore Model', () => {
     it('creates new user', async () => {
       expect(create).toBeDefined();
       const token = await create({
-        username: 'testcreate',
+        first_name: 'test',
+        last_name: 'create',
         password: 'badpassword',
+        role: 'user',
         email: 'test@Jasmine.com',
       });
       expect(token).toBeDefined();
       expect(typeof token).toBe('string');
-      const { id } = (await verifyJWT(token as string)) as User;
+      const { id } = (await verifyJWT(token as string)) as UserReturn;
       testID = id as number;
     });
     it('gets user', async () => {
       expect(get).toBeDefined();
-      const { username } = await get(testID);
-      expect(username).toBeDefined();
-      expect(username).toBe('testcreate');
+      const { last_name } = (await get(testID)) as UserReturn;
+      expect(last_name).toBeDefined();
+      expect(last_name).toBe('create');
     });
     it('updates user', async () => {
       expect(update).toBeDefined();
       const token = await update({
         id: testID,
-        username: 'test update',
-        password: 'worsepassword',
-        email: 'test@Jasmine.com',
+        last_name: 'update',
       });
-      const { username } = await get(testID);
+      const { last_name } = (await get(testID)) as UserReturn;
       expect(token).toBeDefined();
       expect(typeof token).toBe('string');
-      expect(username).toBeDefined();
-      expect(username).toBe('test update');
+      expect(last_name).toBeDefined();
+      expect(last_name).toBe('test update');
     });
     it('authenticates correct passwords and returns JWT', async () => {
       expect(authenticate).toBeDefined();
       const response = await authenticate({
         email: 'test@Jasmine.com',
-        password: 'worsepassword',
+        password: 'badpassword',
       });
       expect(response).not.toBeNull();
       expect(typeof response).toBe('string');
@@ -62,13 +62,13 @@ describe('UserStore Model', () => {
       expect(authenticate).toBeDefined();
       const response = await authenticate({
         email: 'test@test.com',
-        password: 'badpassword',
+        password: 'worsepassword',
       });
       expect(response).toBeNull();
     });
     it('removes user', async () => {
       expect(remove).toBeDefined();
-      const item = await remove(testID);
+      const item = (await remove(testID)) as UserReturn;
       expect(item).toBeDefined();
       expect(item.id).toBe(testID);
     });

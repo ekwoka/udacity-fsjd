@@ -5,7 +5,7 @@ import {
   ItemStore,
   Order,
   OrderStore,
-  User,
+  UserReturn,
   UserStore,
 } from '../../models';
 import { database } from '../helpers/databaseSetup';
@@ -13,7 +13,7 @@ import { database } from '../helpers/databaseSetup';
 describe('/orders Route', () => {
   let testOrders: Order[];
   let testItem: Item;
-  let testUser: User;
+  let testUser: UserReturn;
   beforeAll(async () => {
     await database();
     testUser = (await UserStore.index())[0];
