@@ -36,7 +36,7 @@ describe('/orders Route', () => {
       .post('/orders')
       .send({ user_id: testUser.id });
     expect(status).toBe(200);
-    expect(body.status).toBe('open');
+    expect(body.status).toBe('active');
   });
   it('PUT /:id updates an order', async () => {
     const { id } = testOrders[0];

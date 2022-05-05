@@ -5,8 +5,10 @@ import { verifyJWT } from '../../utils/crypto/jwt';
 describe('/users route', () => {
   it('should register new users', async () => {
     const { status, body } = await supertest(app).post('/users/register').send({
-      username: 'test route',
+      first_name: 'test',
+      last_name: 'route',
       password: 'test',
+      role: 'user',
       email: 'test@route.com',
     });
     expect(status).toBe(200);
@@ -15,7 +17,9 @@ describe('/users route', () => {
 
   it('should return JWT on registration', async () => {
     const { body } = await supertest(app).post('/users/register').send({
-      username: 'tester',
+      first_name: 'tester',
+      last_name: 'testing',
+      role: 'user',
       password: 'testing',
       email: 'test2@testing.com',
     });
@@ -26,7 +30,8 @@ describe('/users route', () => {
 
   it('should not register users with missing fields', async () => {
     const { status, body } = await supertest(app).post('/users/register').send({
-      username: 'test no email',
+      first_name: 'test',
+      last_name: 'no email',
       password: 'test',
     });
     expect(status).toBe(400);

@@ -71,7 +71,7 @@ export const ProductStore = {
     };
     try {
       const connection = await Client.connect();
-      const query = `UPDATE products SET name = $2, price = $3 category_id = $4 WHERE id = $1 RETURNING *`;
+      const query = `UPDATE products SET name = $2, price = $3, category_id = $4 WHERE id = $1 RETURNING *`;
       const result = (
         await connection.query(query, [id, name, price, category_id])
       ).rows[0] as ProductDB;

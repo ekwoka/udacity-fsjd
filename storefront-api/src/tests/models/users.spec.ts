@@ -45,7 +45,7 @@ describe('UserStore Model', () => {
       expect(token).toBeDefined();
       expect(typeof token).toBe('string');
       expect(last_name).toBeDefined();
-      expect(last_name).toBe('test update');
+      expect(last_name).toBe('update');
     });
     it('authenticates correct passwords and returns JWT', async () => {
       expect(authenticate).toBeDefined();

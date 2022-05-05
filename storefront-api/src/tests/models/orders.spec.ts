@@ -22,14 +22,14 @@ describe('OrderStore Model', () => {
       const { id, user_id, status } = (await create(testUserID)) as Order;
       expect(id).toBeDefined();
       expect(user_id).toBe(testUserID);
-      expect(status).toBe('open');
+      expect(status).toBe('active');
       testOrderID = id;
     });
     it('retrieves order', async () => {
       expect(get).toBeDefined();
       const { user_id, status } = (await get(testOrderID)) as Order;
       expect(user_id).toBe(testUserID);
-      expect(status).toBe('open');
+      expect(status).toBe('active');
     });
     it('updates item', async () => {
       expect(update).toBeDefined();
