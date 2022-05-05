@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-import { UserStore } from '../models';
+import { LoginDetails, UserCreate, UserStore } from '../models';
 
 const Users = Router();
 
@@ -8,10 +8,16 @@ const { authenticate, create } = UserStore;
 Users.post(
   '/register',
   async ({ body }: Request, res: Response): Promise<void> => {
-    const { email, username, password } = body;
     try {
-      if (!email || !username || !password) throw 'Missing fields';
-      const token = await create({ email, username, password });
+      if (
+        !body.email ||
+        !body.first_name ||
+        !body.last_name ||
+        !body.role ||
+        !body.password
+      )
+        throw 'Missing fields';
+      const token = await create(body as UserCreate);
       if (!token) throw 'Failed to create user';
       res.json({ token });
     } catch (e) {
@@ -27,9 +33,9 @@ Users.post(
   async ({ body }: Request, res: Response): Promise<void> => {
     try {
       if (!body.email || !body.password) throw 'Missing email or password';
-      const response = await authenticate(body);
-      if (!response) throw 'Invalid email or password';
-      res.json({ token: response });
+      const token = await authenticate(body as LoginDetails);
+      if (!token) throw 'Invalid email or password';
+      res.json({ token });
     } catch (e) {
       res.status(401).json({
         error: e,

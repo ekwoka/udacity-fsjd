@@ -1,21 +1,34 @@
-import { ItemStore, Order, OrderStore, User, UserStore } from '../../models';
+import {
+  ItemStore,
+  Order,
+  OrderStore,
+  UserCreate,
+  UserReturn,
+  UserStore,
+} from '../../models';
 import { ItemPartial } from '../../models/items';
-import { JWT, verifyJWT } from '../../utils';
+import { verifyJWT } from '../../utils';
 
-const testUsers: User[] = [
+const testUsers: UserCreate[] = [
   {
-    username: 'test',
+    first_name: 'test',
+    last_name: 'user',
     email: 'test@test.com',
+    role: 'user',
     password: 'test',
   },
   {
-    username: 'Tony Stark',
+    first_name: 'Tony',
+    last_name: 'Stark',
     email: 'Tony@StarkIndustries.com',
+    role: 'admin',
     password: 'iamironman',
   },
   {
-    username: 'Bruce Banner',
+    first_name: 'Bruce',
+    last_name: 'Banner',
     email: 'Bruce@StarkPsychiatricHospital.org',
+    role: 'admin',
     password: 'youwontlikemewhenimangry',
   },
 ];
@@ -50,13 +63,14 @@ const performSetup = async () => {
   testItems.map(ItemStore.create);
   const userPromises = testUsers.map(async (test) => {
     const token = await UserStore.create(test);
-    return verifyJWT(token as string) as Promise<JWT>;
+    return verifyJWT(token as string) as Promise<UserReturn>;
   });
   const users = await Promise.all(userPromises);
 
   await Promise.all(
     users.map(
-      ({ id }: JWT): Promise<Order> => OrderStore.create(id) as Promise<Order>
+      ({ id }: UserReturn): Promise<Order> =>
+        OrderStore.create(id) as Promise<Order>
     )
   );
   await Promise.all(testItems);
