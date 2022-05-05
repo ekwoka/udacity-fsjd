@@ -1,8 +1,8 @@
 import { Client } from '../database';
-import { Item } from '../models';
+import { ProductDB } from '../models';
 
 export const Dashboard = {
-  async getMostExpensiveItems(limit = 5): Promise<Item[]> {
+  async getMostExpensiveProducts(limit = 5): Promise<ProductDB[]> {
     const query = 'SELECT * FROM items ORDER BY price DESC LIMIT $1';
     const { rows } = await Client.query(query, [limit]);
     return rows;

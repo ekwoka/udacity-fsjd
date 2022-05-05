@@ -1,23 +1,26 @@
 import { Router, Request, Response } from 'express';
 import { VerifyAuthToken } from '../middleware/verifyAuthToken';
-import { ItemStore } from '../models/items';
+import { ProductStore } from '../models';
 
-const Items = Router();
-const { index, get, create, update, remove } = ItemStore;
+const Products = Router();
+const { index, get, create, update, remove } = ProductStore;
 
-Items.get('/', async (req: Request, res: Response): Promise<void> => {
+Products.get('/', async (req: Request, res: Response): Promise<void> => {
   const response = await index();
   res.json(response);
   return;
 });
 
-Items.get('/:id', async ({ params }: Request, res: Response): Promise<void> => {
-  const response = await get(Number(params.id));
-  res.json(response);
-  return;
-});
+Products.get(
+  '/:id',
+  async ({ params }: Request, res: Response): Promise<void> => {
+    const response = await get(Number(params.id));
+    res.json(response);
+    return;
+  }
+);
 
-Items.post(
+Products.post(
   '/',
   VerifyAuthToken,
   async (req: Request, res: Response): Promise<void> => {
@@ -27,7 +30,7 @@ Items.post(
   }
 );
 
-Items.put(
+Products.put(
   '/:id',
   VerifyAuthToken,
   async ({ params, body }: Request, res: Response): Promise<void> => {
@@ -41,7 +44,7 @@ Items.put(
   }
 );
 
-Items.delete(
+Products.delete(
   '/:id',
   VerifyAuthToken,
   async ({ params }: Request, res: Response): Promise<void> => {
@@ -51,4 +54,4 @@ Items.delete(
   }
 );
 
-export { Items };
+export { Products };

@@ -1,20 +1,20 @@
-import { ItemStore, Order, OrderStore, UserStore } from '../../models';
+import { ProductStore, Order, OrderStore, UserStore } from '../../models';
 import { database } from '../helpers/databaseSetup';
 
 describe('OrderStore Model', () => {
-  const { get, create, update, addItem } = OrderStore;
+  const { get, create, update, addProduct } = OrderStore;
 
   describe('has functional methods', () => {
-    let testItemID: number;
+    let testProductID: number;
     let testUserID: number;
     let testOrderID: number;
     beforeAll(async () => {
       await database();
       const [items, users] = await Promise.all([
-        await ItemStore.index(),
+        await ProductStore.index(),
         await UserStore.index(),
       ]);
-      testItemID = items[0].id as number;
+      testProductID = items[0].id as number;
       testUserID = users[0].id as number;
     });
     it('initializes new order', async () => {
@@ -37,8 +37,12 @@ describe('OrderStore Model', () => {
       expect(updated_at).toBeCloseTo(Date.now(), -10);
     });
     it('adds an item to an order', async () => {
-      expect(addItem).toBeDefined();
-      const { items } = (await addItem(testOrderID, testItemID, 3)) as Order;
+      expect(addProduct).toBeDefined();
+      const { items } = (await addProduct(
+        testOrderID,
+        testProductID,
+        3
+      )) as Order;
       expect(items.length).toBeDefined();
     });
   });

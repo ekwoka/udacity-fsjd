@@ -8,7 +8,7 @@ Orders.get('/:id', showOrder);
 Orders.post('/', createOrder);
 Orders.put('/:id', updateOrder);
 
-const { index, create, get, addItem } = OrderStore;
+const { index, create, get, addProduct } = OrderStore;
 
 async function getOrders(req: Request, res: Response) {
   const response = await index();
@@ -40,7 +40,7 @@ async function updateOrder(req: Request, res: Response) {
   try {
     if (!order_id || !item_id || !quantity)
       throw 'order_id, item_id, and quantity are required';
-    const response = await addItem(order_id, item_id, quantity);
+    const response = await addProduct(order_id, item_id, quantity);
     res.json(response);
   } catch (e) {
     res.status(400).json({ error: e });

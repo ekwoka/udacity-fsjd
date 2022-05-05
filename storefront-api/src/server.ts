@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cors, { CorsOptions } from 'cors';
-import { Items, Users, Orders, Services } from './routes';
+import { Products, Users, Orders, Services } from './routes';
 
 const app: express.Application = express();
 const address = '0.0.0.0:3000';
@@ -12,7 +12,7 @@ const corsOptions: CorsOptions = {
 
 app.use([bodyParser.json(), cors(corsOptions)]);
 
-app.use('/items', Items);
+app.use('/items', Products);
 app.use('/users', Users);
 app.use('/orders', Orders);
 app.use('/services', Services);

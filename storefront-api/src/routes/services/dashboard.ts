@@ -6,7 +6,7 @@ export const mostExpensive = async (
   res: Response
 ): Promise<void> => {
   try {
-    const data = await Dashboard.getMostExpensiveItems();
+    const data = await Dashboard.getMostExpensiveProducts();
     res.json(data);
   } catch (error) {
     res.status(400).json({ error });

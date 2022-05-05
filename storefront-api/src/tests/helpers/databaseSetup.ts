@@ -1,12 +1,12 @@
 import {
-  ItemStore,
+  ProductStore,
   Order,
   OrderStore,
   UserCreate,
   UserReturn,
   UserStore,
 } from '../../models';
-import { ItemPartial } from '../../models/items';
+import { ProductData } from '../../models';
 import { verifyJWT } from '../../utils';
 
 const testUsers: UserCreate[] = [
@@ -33,14 +33,14 @@ const testUsers: UserCreate[] = [
   },
 ];
 
-const testItems: ItemPartial[] = [
+const testProducts: ProductData[] = [
   {
     name: 'Iron Suit',
-    description: 'A suit made of iron',
+    price: 100.5,
   },
   {
     name: 'Green Gloves',
-    description: 'A pair of gloves made of green',
+    price: 50.5,
   },
 ];
 
@@ -60,7 +60,7 @@ const performSetup = async () => {
   inprogress = true;
   console.log('Populating Database for Test Environment...');
   console.time('🗃');
-  testItems.map(ItemStore.create);
+  testProducts.map(ProductStore.create);
   const userPromises = testUsers.map(async (test) => {
     const token = await UserStore.create(test);
     return verifyJWT(token as string) as Promise<UserReturn>;
@@ -73,7 +73,7 @@ const performSetup = async () => {
         OrderStore.create(id) as Promise<Order>
     )
   );
-  await Promise.all(testItems);
+  await Promise.all(testProducts);
   console.timeEnd('🗃');
 
   complete = true;

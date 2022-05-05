@@ -6,8 +6,8 @@ describe('Dashboard Service', () => {
   it('should be defined', () => {
     expect(Dashboard).toBeDefined();
   });
-  it('should return the most expensive Items', async () => {
-    const items = await Dashboard.getMostExpensiveItems();
+  it('should return the most expensive Products', async () => {
+    const items = await Dashboard.getMostExpensiveProducts();
     expect(Array.isArray(items)).toBeTrue();
     expect(items[0]).toBeDefined();
     expect(items[0].name).toBeDefined();
