@@ -1,17 +1,19 @@
 import { Router, Request, Response } from 'express';
+import { VerifyAuthToken } from '../middleware/verifyAuthToken';
 import { OrderStore } from '../models';
 
 const Orders = Router();
 
-Orders.get('/', getOrders);
-Orders.get('/:id', showOrder);
-Orders.post('/', createOrder);
-Orders.put('/:id', updateOrder);
+Orders.get('/', VerifyAuthToken, getOrders);
+Orders.get('/:id', VerifyAuthToken, showOrder);
+Orders.post('/', VerifyAuthToken, createOrder);
+Orders.put('/:id', VerifyAuthToken, updateOrder);
 
 const { index, create, get, addProduct } = OrderStore;
 
 async function getOrders(req: Request, res: Response) {
-  const response = await index();
+  const { id } = res.locals.user;
+  const response = await index(id);
   res.json(response);
   return;
 }

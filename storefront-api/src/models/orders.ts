@@ -11,11 +11,12 @@ export type Order = {
 };
 
 export const OrderStore = {
-  async index(): Promise<Order[]> {
+  async index(user_id?: number): Promise<Order[]> {
     try {
       const connection = await Client.connect();
-      const query = `SELECT * FROM orders`;
-      const result = await connection.query(query);
+      const query =
+        'SELECT * FROM orders' + (user_id ? ` WHERE user_id = $1` : '');
+      const result = await connection.query(query, user_id ? [user_id] : []);
       connection.release();
       return result.rows as Order[];
     } catch (e) {

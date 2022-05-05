@@ -35,13 +35,16 @@ describe('/orders Route', () => {
   });
   it('GET /:id returns a specific order', async () => {
     const { id } = testOrders[0];
-    const { status, body } = await supertest(app).get(`/orders/${id}`);
+    const { status, body } = await supertest(app)
+      .get(`/orders/${id}`)
+      .set('Authorization', `Bearer ${token}`);
     expect(status).toBe(200);
     expect(body.id).toBe(id);
   });
   it('POST / creates an order', async () => {
     const { status, body } = await supertest(app)
       .post('/orders')
+      .set('Authorization', `Bearer ${token}`)
       .send({ user_id: testUser.id });
     expect(status).toBe(200);
     expect(body.status).toBe('active');
@@ -50,6 +53,7 @@ describe('/orders Route', () => {
     const { id } = testOrders[0];
     const { status, body } = await supertest(app)
       .put(`/orders/${id}`)
+      .set('Authorization', `Bearer ${token}`)
       .send({ order_id: id, item_id: testProduct.id, quantity: 1 });
     expect(status).toBe(200);
     expect(body.items.length).toBe(1);
