@@ -15,7 +15,8 @@ export const OrderStore = {
     try {
       const connection = await Client.connect();
       const query =
-        'SELECT * FROM orders' + (user_id ? ` WHERE user_id = $1` : '');
+        'SELECT * FROM orders' +
+        (user_id ? ` WHERE user_id = $1 AND status = 'active'` : '');
       const result = await connection.query(query, user_id ? [user_id] : []);
       connection.release();
       return result.rows as Order[];

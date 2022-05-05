@@ -30,7 +30,9 @@ describe('/orders Route', () => {
     expect(status).toBe(200);
     expect(Array.isArray(body)).toBe(true);
     expect(body.length).toEqual(
-      testOrders.filter((order) => order.user_id === testUser.id).length
+      testOrders.filter(
+        (order) => order.user_id === testUser.id && order.status === 'active'
+      ).length
     );
   });
   it('GET /:id returns a specific order', async () => {
