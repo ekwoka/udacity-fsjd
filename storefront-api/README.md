@@ -16,6 +16,18 @@ pnpm i
 ```
 
 ### DB Setup
+> Note: A `.env` file is required with the following values:
+> POSTGRES_HOST='localhost'
+> POSTGRES_USER='full_stack_user'
+> POSTGRES_DB='full_stack_dev'
+> POSTGRES_PASSWORD='password123'
+> POSTGRES_PORT='5432'
+> POSTGRES_TEST_DB='full_stack_test'
+> ENV='dev'
+> BCRYPT_PASSWORD='omgbeckylookatherbutt'
+> SALT_ROUNDS='10'
+
+
 Ensure you have docker running and then you can run the following command:
 
 > Substitute PNPM with NPM or YARN as your heart desires
@@ -48,6 +60,11 @@ pnpm build && pnpm serve
 ```
 
 This will spin the serve up on `localhost:3000`
+
+### Testing
+```
+pnpm test
+```
 
 ## Routes
 ### /products
