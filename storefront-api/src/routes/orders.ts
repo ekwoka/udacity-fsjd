@@ -13,15 +13,25 @@ const { index, create, get, addProduct } = OrderStore;
 
 async function getOrders(req: Request, res: Response) {
   const { id } = res.locals.user;
-  const response = await index(id);
-  res.json(response);
+  try {
+    const response = await index(id);
+    res.json(response);
+  } catch (e) {
+    console.log(e);
+    res.status(401).json({ error: e });
+  }
   return;
 }
 
 async function showOrder(req: Request, res: Response) {
   const { id } = req.params;
-  const response = await get(Number(id));
-  res.json(response);
+  try {
+    const response = await get(Number(id));
+    res.json(response);
+  } catch (e) {
+    console.log(e);
+    res.status(401).json({ error: e });
+  }
   return;
 }
 
@@ -32,7 +42,7 @@ async function createOrder(req: Request, res: Response) {
     const response = await create(user_id);
     res.json(response);
   } catch (e) {
-    res.status(400).json({ error: e });
+    res.status(401).json({ error: e });
   }
   return;
 }
@@ -45,7 +55,7 @@ async function updateOrder(req: Request, res: Response) {
     const response = await addProduct(order_id, item_id, quantity);
     res.json(response);
   } catch (e) {
-    res.status(400).json({ error: e });
+    res.status(401).json({ error: e });
   }
 }
 

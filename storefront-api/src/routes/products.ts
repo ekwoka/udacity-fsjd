@@ -6,16 +6,26 @@ const Products = Router();
 const { index, get, create, update, remove } = ProductStore;
 
 Products.get('/', async (req: Request, res: Response): Promise<void> => {
-  const response = await index();
-  res.json(response);
+  try {
+    const response = await index();
+    res.json(response);
+  } catch (e) {
+    console.log(e);
+    res.status(401).json({ error: e });
+  }
   return;
 });
 
 Products.get(
   '/:id',
   async ({ params }: Request, res: Response): Promise<void> => {
-    const response = await get(Number(params.id));
-    res.json(response);
+    try {
+      const response = await get(Number(params.id));
+      res.json(response);
+    } catch (e) {
+      console.log(e);
+      res.status(401).json({ error: e });
+    }
     return;
   }
 );
@@ -24,8 +34,13 @@ Products.post(
   '/',
   VerifyAuthToken,
   async (req: Request, res: Response): Promise<void> => {
-    const response = await create(req.body);
-    res.json(response);
+    try {
+      const response = await create(req.body);
+      res.json(response);
+    } catch (e) {
+      console.log(e);
+      res.status(401).json({ error: e });
+    }
     return;
   }
 );
@@ -38,8 +53,13 @@ Products.put(
       ...body,
       id: Number(params.id),
     };
-    const response = await update(item);
-    res.json(response);
+    try {
+      const response = await update(item);
+      res.json(response);
+    } catch (e) {
+      console.log(e);
+      res.status(401).json({ error: e });
+    }
     return;
   }
 );
@@ -48,8 +68,13 @@ Products.delete(
   '/:id',
   VerifyAuthToken,
   async ({ params }: Request, res: Response): Promise<void> => {
-    const response = await remove(Number(params.id));
-    res.json(response);
+    try {
+      const response = await remove(Number(params.id));
+      res.json(response);
+    } catch (e) {
+      console.log(e);
+      res.status(401).json({ error: e });
+    }
     return;
   }
 );
