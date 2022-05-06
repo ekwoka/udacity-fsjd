@@ -1,27 +1,27 @@
 {
   "dev": {
     "driver": "pg",
-    "host": "0.0.0.0",
-    "port": 5432,
-    "database": "full_stack_dev",
-    "user": "full_stack_user",
-    "password": "password123"
+    "host": { "ENV": "POSTGRES_HOST" },
+    "port": { "ENV": "POSTGRES_PORT" },
+    "database": { "ENV": "POSTGRES_DB" },
+    "user": { "ENV": "POSTGRES_USER" },
+    "password": { "ENV": "POSTGRES_PASSWORD" }
   },
   "test": {
     "driver": "pg",
-    "host": "0.0.0.0",
-    "port": 5432,
-    "database": "full_stack_test",
-    "user": "full_stack_user",
-    "password": "password123"
+    "host": { "ENV": "POSTGRES_HOST" },
+    "port": { "ENV": "POSTGRES_PORT" },
+    "database": { "ENV": "POSTGRES_TEST_DB" },
+    "user": { "ENV": "POSTGRES_USER" },
+    "password": { "ENV": "POSTGRES_PASSWORD" }
   },
   "clean": {
     "driver": "pg",
-    "host": "0.0.0.0",
-    "port": 5432,
+    "host": { "ENV": "POSTGRES_HOST" },
+    "port": { "ENV": "POSTGRES_PORT" },
     "database": "postgres",
-    "user": "full_stack_user",
-    "password": "password123"
+    "user": { "ENV": "POSTGRES_USER" },
+    "password": { "ENV": "POSTGRES_PASSWORD" }
   },
   "sql-file": true
 }
