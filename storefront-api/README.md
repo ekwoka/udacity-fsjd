@@ -9,16 +9,24 @@ This project represents a starting API to handle the basics of an ecommerce stor
 
 ## Commands
 
-### Quick Start
+### Installation
+
+```
+pnpm i
+```
+
+### DB Setup
 Ensure you have docker running and then you can run the following command:
 
 > Substitute PNPM with NPM or YARN as your heart desires
 
 ```bash
-pnpm i && pnpm run setup
+pnpm run setup
 ```
 
-This will install dependencies, build the docker containers, create the database, and generate cryptographic keys. Afterwards it will run the test suite to build and test the code to ensure everything is working as expected.
+This will build the docker containers, create the database, and generate cryptographic keys. Afterwards it will run the test suite to build and test the code to ensure everything is working as expected.
+
+Database will run on port `5432`
 
 ### Crypto Keys
 
