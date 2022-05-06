@@ -8,22 +8,20 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Products - DONE
 
-- Index
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products (Most Expensive Products)
-- ~~[OPTIONAL] Products by category (args: product category)~~
+- Index GET /products
+- Show GET /products/:id
+- Create [token required] POST /products
+- [OPTIONAL] Top 5 most popular products (Most Expensive Products) GET /services/most_expensive
 
 #### Users - DONE
 
-- Index [token required]
-- Show [token required]
-- Create New ~~[token required]~~ (User creates themselves before they have a token)
+- Index [token required] GET /users
+- Show [token required] GET /users/:id
+- Create New - POST /users/register (User creates themselves before they have a token) 
 
 #### Orders - DONE
 
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- Current Order by user (args: user id)[token required] GET /orders
 
 ## Data Shapes
 
