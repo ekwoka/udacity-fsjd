@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CartService } from '../cart.service';
-import { Product } from '../products.service';
+import { CartService } from '../../services/cart/cart.service';
+import { Product } from '../../services/products/products.service';
 
 @Component({
   selector: 'storefront-product',
@@ -34,6 +34,8 @@ export class ProductComponent implements OnInit {
       id: 0,
       name: '',
       price: 0,
+      image: '',
+      descriptions: '',
     };
   }
 

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Product, ProductsService } from '../products.service';
+import {
+  Product,
+  ProductsService,
+} from '../../services/products/products.service';
 
 @Component({
   selector: 'storefront-collection',
@@ -19,6 +22,8 @@ export class CollectionComponent implements OnInit {
   constructor(private productService: ProductsService) {}
 
   ngOnInit(): void {
-    this.products = this.productService.productList;
+    this.productService.productList.subscribe((products) => {
+      this.products = products;
+    });
   }
 }

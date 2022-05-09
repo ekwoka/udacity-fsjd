@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CartItem } from '../cart.service';
+import { CartItem } from '../../services/cart/cart.service';
 import { Option } from '../select/select.component';
 
 @Component({
@@ -74,6 +74,8 @@ export class CartProductComponent implements OnInit {
       name: '',
       price: 0,
       quantity: 0,
+      image: '',
+      descriptions: '',
     };
   }
 
