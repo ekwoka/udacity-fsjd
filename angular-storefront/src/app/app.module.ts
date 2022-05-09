@@ -8,6 +8,7 @@ import { CartComponent } from './cart/cart.component';
 import { ProductComponent } from './product/product.component';
 import { CollectionComponent } from './collection/collection.component';
 import { ButtonPrimaryComponent } from './button-primary/button-primary.component';
+import { SelectComponent } from './select/select.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ButtonPrimaryComponent } from './button-primary/button-primary.componen
     ProductComponent,
     CollectionComponent
     ButtonPrimaryComponent,
+    SelectComponent,
   ],
   imports: [
     BrowserModule,
