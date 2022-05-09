@@ -8,9 +8,7 @@ import { Option } from '../select/select.component';
     <li class="flex py-6 sm:py-10" id="cart-{{ product.id }}">
       <div class="flex-shrink-0">
         <img
-          src="https://placekitten.com/{{ 600 + product.id * 12 }}/{{
-            600 + product.id * 12
-          }}"
+          src="{{ product.image || 'https://placekitten.com/300/300' }}"
           alt="{{ product.name }}"
           class="h-24 w-24 rounded-md object-cover object-center sm:h-48 sm:w-48" />
       </div>

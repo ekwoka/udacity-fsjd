@@ -10,11 +10,9 @@ import { Product } from '../../services/products/products.service';
       id="product-{{ product.id }}">
       <img
         class="h-auto w-full rounded"
-        src="https://placekitten.com/{{ 300 + product.id * 12 }}/{{
-          300 + product.id * 12
-        }}"
-        width="1"
-        height="1"
+        src="{{ product.image || 'https://placekitten.com/300/300' }}"
+        width="165"
+        height="248"
         alt="{{ product.name }}" />
       <h2 class="text-xl">{{ product.name }}</h2>
       <p class="text-2xl font-semibold">$ {{ product.price }}</p>
