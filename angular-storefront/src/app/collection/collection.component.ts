@@ -1,14 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { Product, ProductsService } from '../products.service';
 
 @Component({
   selector: 'storefront-collection',
-  templateUrl: './collection.component.html'
+  template: `
+    <div class="px-12">
+      <div
+        class="mx-auto grid max-w-screen-lg grid-flow-row grid-cols-2 gap-4 md:grid-cols-3">
+        <storefront-product
+          *ngFor="let product of products"
+          [product]="product"></storefront-product>
+      </div>
+    </div>
+  `,
 })
 export class CollectionComponent implements OnInit {
-
-  constructor() { }
+  products: Product[] = [];
+  constructor(private productService: ProductsService) {}
 
   ngOnInit(): void {
+    this.products = this.productService.productList;
   }
-
 }
