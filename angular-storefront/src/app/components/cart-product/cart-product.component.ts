@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CartItem } from '../../services/cart/cart.service';
+import { Product } from 'src/app/services/products/products.service';
+import { CartItem, CartService } from '../../services/cart/cart.service';
 import { Option } from '../select/select.component';
 
 @Component({
@@ -41,7 +42,8 @@ import { Option } from '../select/select.component';
             <div class="absolute top-0 right-0">
               <button
                 type="button"
-                class="-m-2 inline-flex p-2 text-gray-400 hover:text-gray-500">
+                class="-m-2 inline-flex p-2 text-gray-400 hover:text-gray-500"
+                (click)="remove(product)">
                 <span class="sr-only">Remove</span>
                 <hero-icon
                   name="x"
@@ -66,7 +68,7 @@ import { Option } from '../select/select.component';
 export class CartProductComponent implements OnInit {
   @Input() product: CartItem;
   quantityOptions: Option[] = quantityOptions;
-  constructor() {
+  constructor(private cartService: CartService) {
     this.product = {
       id: 0,
       name: '',
@@ -75,6 +77,9 @@ export class CartProductComponent implements OnInit {
       image: '',
       descriptions: '',
     };
+  }
+  remove(product: Product): void {
+    this.cartService.removeFromCart(product);
   }
 
   ngOnInit(): void {}

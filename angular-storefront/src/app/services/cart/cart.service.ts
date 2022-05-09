@@ -1,11 +1,18 @@
 import { Injectable } from '@angular/core';
+import { getStorage } from 'src/utils/getStorage';
 import { Product } from '../products/products.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  private cartContents: CartItem[] = [];
+  private _cartContents: CartItem[] = getStorage<CartItem[]>('cart', []);
+  private get cartContents(): CartItem[] {
+    return this._cartContents;
+  }
+  private set cartContents(val: CartItem[]) {
+    this._cartContents = getStorage<CartItem[]>('cart', val, true);
+  }
 
   constructor() {}
 
@@ -36,13 +43,18 @@ export class CartService {
   }
 
   addToCart(product: Product): void {
-    console.log(product.name, 'adding to cart');
     const productInCart = this.cartContents.find((p) => p.id === product.id);
     if (productInCart) {
       productInCart.quantity++;
       return;
     }
     this.cartContents.push({ ...product, quantity: 1 });
+  }
+
+  removeFromCart(product: Product): void {
+    this.cartContents = this.cartContents.filter(
+      (item) => item.id !== product.id
+    );
   }
 }
 
