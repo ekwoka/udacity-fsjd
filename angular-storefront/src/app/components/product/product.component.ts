@@ -6,7 +6,7 @@ import { Product } from '../../services/products/products.service';
   selector: 'storefront-product',
   template: `
     <div
-      class="flex flex-col items-center justify-center gap-4 p-8"
+      class="flex flex-col items-center justify-center gap-4"
       id="product-{{ product.id }}">
       <img
         class="h-auto w-full rounded"

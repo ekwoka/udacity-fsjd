@@ -9,7 +9,7 @@ import {
   template: `
     <div class="px-12">
       <div
-        class="mx-auto grid max-w-screen-lg grid-flow-row grid-cols-2 gap-4 md:grid-cols-3">
+        class="mx-auto grid max-w-screen-lg grid-flow-row grid-cols-2 gap-x-4 gap-y-16 py-12 md:grid-cols-3">
         <storefront-product
           *ngFor="let product of products"
           [product]="product"></storefront-product>
