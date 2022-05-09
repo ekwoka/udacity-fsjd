@@ -13,6 +13,8 @@ import { ButtonPrimaryComponent } from './components/button-primary/button-prima
 import { HeroIconModule, shoppingCart, x, check } from 'ng-heroicon';
 import { CartProductComponent } from './components/cart-product/cart-product.component';
 import { SelectComponent } from './components/select/select.component';
+import { ToastControllerComponent } from './components/toast-controller/toast-controller.component';
+import { ToastItemComponent } from './components/toast-item/toast-item.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { SelectComponent } from './components/select/select.component';
     ButtonPrimaryComponent,
     CartProductComponent,
     SelectComponent,
+    ToastControllerComponent,
+    ToastItemComponent,
   ],
   imports: [
     BrowserModule,
