@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'storefront-header',
@@ -19,7 +20,11 @@ export class HeaderComponent implements OnInit {
       url: '/cart',
     },
   ];
-  constructor() {}
+  constructor(private cartService: CartService) {}
+
+  get cartCount() {
+    return this.cartService.count;
+  }
 
   ngOnInit(): void {}
 }

@@ -19,6 +19,15 @@
           </a>
         </div>
       </div>
+      <button type="button" class="flex flex-col items-center">
+        <hero-icon
+          name="shopping-cart"
+          type="solid"
+          class="h-7 w-7 fill-emerald-50 text-transparent"></hero-icon>
+        <div class="text-emerald-50">
+          <span class="font-mono">{{ cartCount }}</span> items
+        </div>
+      </button>
     </div>
     <div class="flex flex-wrap justify-center space-x-6 py-4 lg:hidden">
       <a
