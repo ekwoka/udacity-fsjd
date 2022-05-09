@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartService } from '../../services/cart/cart.service';
 
 @Component({
@@ -20,10 +21,14 @@ export class HeaderComponent implements OnInit {
       url: '/cart',
     },
   ];
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private router: Router) {}
 
   get cartCount() {
     return this.cartService.count;
+  }
+
+  navigateToCart() {
+    this.router.navigate(['cart']);
   }
 
   ngOnInit(): void {}
