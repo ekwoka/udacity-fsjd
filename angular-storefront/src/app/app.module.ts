@@ -9,7 +9,9 @@ import { ProductComponent } from './product/product.component';
 import { CollectionComponent } from './collection/collection.component';
 import { ButtonPrimaryComponent } from './button-primary/button-primary.component';
 import { HeroIconModule, shoppingCart, x, check } from 'ng-heroicon';
+import { CartProductComponent } from './cart-product/cart-product.component';
 import { SelectComponent } from './select/select.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,13 +19,15 @@ import { SelectComponent } from './select/select.component';
     HeaderComponent,
     CartComponent,
     ProductComponent,
-    CollectionComponent
+    CollectionComponent,
     ButtonPrimaryComponent,
+    CartProductComponent,
     SelectComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     HeroIconModule.forRoot(
       { shoppingCart, x, check },
       {
