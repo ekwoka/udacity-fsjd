@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Toast } from 'src/app/components/toast-item/toast-item.component';
 import { getStorage } from 'src/utils/getStorage';
 import { Product } from '../products/products.service';
@@ -16,7 +17,7 @@ export class CartService {
     this._cartContents = getStorage<CartItem[]>('cart', val, true);
   }
 
-  constructor(private toastsService: ToastsService) {}
+  constructor(private toastsService: ToastsService, private router: Router) {}
 
   get count(): number {
     return this.cartContents.reduce(
@@ -58,12 +59,12 @@ export class CartService {
     const buttons: Toast['buttons'] = [
       {
         label: 'View Cart',
-        action: () => console.log('View Cart'),
+        action: () => this.router.navigate(['cart']),
         type: 'primary',
       },
       {
         label: 'Checkout',
-        action: () => console.log('Checkout'),
+        action: () => this.router.navigate(['checkout']),
         type: 'secondary',
       },
     ];

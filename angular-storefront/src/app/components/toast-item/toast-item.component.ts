@@ -35,7 +35,7 @@ import { nextTick } from 'src/utils/nextTick';
               <button-primary
                 *ngFor="let button of toast.buttons"
                 type="button"
-                (click)="button.action()"
+                (click)="performAction(button.action)"
                 [text]="button.label">
               </button-primary>
             </div>
@@ -83,8 +83,8 @@ import { nextTick } from 'src/utils/nextTick';
 })
 export class ToastItemComponent implements OnInit {
   @Input() toast: Toast;
-
   remove: boolean = false;
+
   constructor() {
     this.toast = {
       shown: false,
@@ -104,6 +104,11 @@ export class ToastItemComponent implements OnInit {
   hideToast(): void {
     this.toast.shown = false;
     setTimeout(() => (this.remove = true), 400);
+  }
+
+  performAction(action: () => void): void {
+    action();
+    this.hideToast();
   }
 }
 
