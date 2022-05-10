@@ -8,27 +8,29 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CartComponent } from './components/cart/cart.component';
-import { ProductComponent } from './components/product/product.component';
+import { CollectionProductComponent } from './components/collection-product/collection-product.component';
 import { CollectionComponent } from './components/collection/collection.component';
 import { ButtonPrimaryComponent } from './components/button-primary/button-primary.component';
-import { HeroIconModule, shoppingCart, x, check } from 'ng-heroicon';
+import { HeroIconModule, shoppingCart, x, check, star } from 'ng-heroicon';
 import { CartProductComponent } from './components/cart-product/cart-product.component';
 import { SelectComponent } from './components/select/select.component';
 import { ToastControllerComponent } from './components/toast-controller/toast-controller.component';
 import { ToastItemComponent } from './components/toast-item/toast-item.component';
+import { ProductComponent } from './components/product/product.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     CartComponent,
-    ProductComponent,
+    CollectionProductComponent,
     CollectionComponent,
     ButtonPrimaryComponent,
     CartProductComponent,
     SelectComponent,
     ToastControllerComponent,
     ToastItemComponent,
+    ProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,7 @@ import { ToastItemComponent } from './components/toast-item/toast-item.component
     HttpClientModule,
     BrowserAnimationsModule,
     HeroIconModule.forRoot(
-      { shoppingCart, x, check },
+      { shoppingCart, x, check, star },
       {
         defaultHostDisplay: 'inlineBlock', // default 'none'
         attachDefaultDimensionsIfNoneFound: true, // default 'false'

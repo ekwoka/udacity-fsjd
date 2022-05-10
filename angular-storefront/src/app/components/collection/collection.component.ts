@@ -10,9 +10,9 @@ import {
     <div class="px-12">
       <div
         class="mx-auto grid max-w-screen-lg grid-flow-row grid-cols-2 gap-x-4 gap-y-16 py-12 md:grid-cols-3">
-        <storefront-product
+        <collection-product
           *ngFor="let product of products"
-          [product]="product"></storefront-product>
+          [product]="product"></collection-product>
       </div>
     </div>
   `,

@@ -11,7 +11,10 @@ import { Option } from '../select/select.component';
         <img
           src="{{ product.image || 'https://placekitten.com/300/300' }}"
           alt="{{ product.name }}"
-          class="h-24 w-24 rounded-md object-cover object-center sm:h-48 sm:w-48" />
+          class="h-24 w-24 rounded-md object-cover object-center sm:h-48 sm:w-48"
+          loading="lazy"
+          width="165"
+          height="248" />
       </div>
 
       <div class="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
@@ -20,7 +23,7 @@ import { Option } from '../select/select.component';
             <div class="flex justify-between">
               <h3 class="text-sm">
                 <a
-                  href="#"
+                  routerLink="{{ '/products/' + product.id }}"
                   class="font-medium text-gray-700 hover:text-gray-800">
                   {{ product.name }}
                 </a>
@@ -75,7 +78,7 @@ export class CartProductComponent implements OnInit {
       price: 0,
       quantity: 0,
       image: '',
-      descriptions: '',
+      description: '',
     };
   }
   remove(product: Product): void {
