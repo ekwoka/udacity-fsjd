@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ToastsService } from 'src/app/services/toasts/toasts.service';
 import { CartService } from '../../services/cart/cart.service';
 import { Product } from '../../services/products/products.service';
 

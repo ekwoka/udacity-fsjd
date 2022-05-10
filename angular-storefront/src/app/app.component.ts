@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   template: `
     <storefront-header></storefront-header>
     <router-outlet></router-outlet>
+    <toast-controller></toast-controller>
   `,
   styleUrls: ['./app.component.css'],
 })
