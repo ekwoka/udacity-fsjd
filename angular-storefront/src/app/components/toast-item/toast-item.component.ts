@@ -20,13 +20,16 @@ import { nextTick } from 'src/utils/nextTick';
           <div class="flex-shrink-0 pt-0.5">
             <img
               class="h-10 w-10 rounded-full"
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-              alt="" />
+              src="https://placekitten.com/100/100"
+              alt=""
+              width="1"
+              height="1"
+              loading="lazy" />
           </div>
           <div class="ml-3 w-0 flex-1">
-            <p class="text-sm font-medium text-gray-900">Emilia Gates</p>
+            <p class="text-sm font-medium text-gray-900">{{ toast.heading }}</p>
             <p class="mt-1 text-sm text-gray-500">
-              Sent you an invite to connect.
+              {{ toast.message }}
             </p>
             <div class="mt-4 flex gap-2">
               <button-primary
