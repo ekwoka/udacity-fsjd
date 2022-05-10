@@ -96,9 +96,10 @@
 
       <div class="mt-6">
         <button
-          type="submit"
-          class="w-full rounded-md border border-transparent bg-emerald-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-gray-50">
-          Checkout
+          type="button"
+          class="w-full rounded-md border border-transparent bg-emerald-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+          (click)="router.navigate(['checkout'])">
+          Checkout - {{ cartService.total.toFixed(2) }}
         </button>
       </div>
     </section>

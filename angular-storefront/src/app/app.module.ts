@@ -17,6 +17,9 @@ import { SelectComponent } from './components/select/select.component';
 import { ToastControllerComponent } from './components/toast-controller/toast-controller.component';
 import { ToastItemComponent } from './components/toast-item/toast-item.component';
 import { ProductComponent } from './components/product/product.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { CheckoutProductComponent } from './components/checkout-product/checkout-product.component';
+import { CheckoutCartComponent } from './components/checkout-cart/checkout-cart.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { ProductComponent } from './components/product/product.component';
     ToastControllerComponent,
     ToastItemComponent,
     ProductComponent,
+    CheckoutComponent,
+    CheckoutProductComponent,
+    CheckoutCartComponent,
   ],
   imports: [
     BrowserModule,

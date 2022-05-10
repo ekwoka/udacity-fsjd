@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartItem, CartService } from '../../services/cart/cart.service';
 
 @Component({
@@ -9,7 +10,7 @@ export class CartComponent implements OnInit {
   get contents(): CartItem[] {
     return this.cartService.contents;
   }
-  constructor(public cartService: CartService) {}
+  constructor(public cartService: CartService, public router: Router) {}
 
   ngOnInit(): void {}
 }
