@@ -7,6 +7,7 @@ export const getStorage = <T>(
   const update = () => localStorage.setItem(prefix, JSON.stringify(target));
   const proxyOutput = wrapProxy(target, update) as ProxyBase;
   const itemInStorage = localStorage.getItem(prefix);
+  update();
   if (override) return Object.assign(proxyOutput, initial) as T;
   if (itemInStorage)
     return Object.assign(proxyOutput, JSON.parse(itemInStorage)) as T;

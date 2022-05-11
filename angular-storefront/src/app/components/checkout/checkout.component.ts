@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CartService } from 'src/app/services/cart/cart.service';
+import { OrderService, Price } from 'src/app/services/order.service';
 
 @Component({
   selector: 'storefront-checkout',
   templateUrl: './checkout.component.html',
 })
 export class CheckoutComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private cartService: CartService,
+    private orderService: OrderService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -17,11 +23,18 @@ export class CheckoutComponent implements OnInit {
   }
 
   placeOrder(orderForm: NgForm): void {
-    Object.entries(orderForm.form.controls).forEach(([key, value]) => {
-      if (value.valid) return;
-      console.log(key, value.errors);
-    });
     if (!orderForm.valid) return console.log('Form Incomplete');
-    this.router.navigate(['/order-confirmation']);
+    const price: Price = {
+      subtotal: this.cartService.subtotal,
+      tax: this.cartService.taxEstimate,
+      total: this.cartService.total,
+    };
+    this.orderService.confirmOrder(
+      orderForm.value,
+      this.cartService.contents,
+      price
+    );
+    this.router.navigate(['/order']);
+    this.cartService.clearCart();
   }
 }

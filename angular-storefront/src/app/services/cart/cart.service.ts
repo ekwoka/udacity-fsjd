@@ -9,12 +9,12 @@ import { ToastsService } from '../toasts/toasts.service';
   providedIn: 'root',
 })
 export class CartService {
-  private _cartContents: CartItem[] = getStorage<CartItem[]>('cart', []);
+  private _cartContents: CartItem[] = getStorage<CartItem[]>('cart-items', []);
   private get cartContents(): CartItem[] {
     return this._cartContents;
   }
   private set cartContents(val: CartItem[]) {
-    this._cartContents = getStorage<CartItem[]>('cart', val, true);
+    this._cartContents = getStorage<CartItem[]>('cart-items', val, true);
   }
 
   constructor(private toastsService: ToastsService, private router: Router) {}
@@ -81,6 +81,10 @@ export class CartService {
     this.cartContents = this.cartContents.filter(
       (item) => item.id !== product.id
     );
+  }
+
+  clearCart(): void {
+    this.cartContents = [];
   }
 }
 
