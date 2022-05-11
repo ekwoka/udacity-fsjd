@@ -10,6 +10,7 @@ The project requires only npm install and ng serve to install and launch the app
 ### Document the project in the README
 
 The Project README includes a description of the project, as well as instructions for installation and launch
+--DONE--
 
 ### Organize and write clean code
 
@@ -90,6 +91,7 @@ Cart data is shared between the product list component and the shopping cart com
 --DONE--
 
 ## Routing
+
 ### Use Angular routing in templates
 
 The application uses the `<router-outlet>` placeholder and the routerLink attribute in HTML templates.
