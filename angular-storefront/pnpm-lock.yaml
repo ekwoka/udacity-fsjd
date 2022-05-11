@@ -14,9 +14,9 @@ specifiers:
   '@angular/router': ~13.3.6
   '@tailwindcss/forms': ^0.5.1
   '@types/jasmine': ~4.0.3
-  '@types/node': ^17.0.31
+  '@types/node': ^17.0.32
   autoprefixer: ^10.4.7
-  jasmine-core: ~4.1.0
+  jasmine-core: ~4.1.1
   karma: ~6.3.19
   karma-chrome-launcher: ~3.1.1
   karma-coverage: ~2.2.0
@@ -57,13 +57,13 @@ devDependencies:
   '@angular/cli': 13.3.5
   '@angular/compiler-cli': 13.3.6_g7hxzddhuje7gzfil2mzssa6te
   '@types/jasmine': 4.0.3
-  '@types/node': 17.0.31
-  jasmine-core: 4.1.0
+  '@types/node': 17.0.32
+  jasmine-core: 4.1.1
   karma: 6.3.19
   karma-chrome-launcher: 3.1.1
   karma-coverage: 2.2.0
   karma-jasmine: 5.0.0_karma@6.3.19
-  karma-jasmine-html-reporter: 1.7.0_jy42m2skhirzckqzwhzal4tgnu
+  karma-jasmine-html-reporter: 1.7.0_h5kavcec5mk5shvgnx5rs5hu5i
   typescript: 4.6.4
 
 packages:
@@ -1800,13 +1800,13 @@ packages:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
     dependencies:
       '@types/connect': 3.4.35
-      '@types/node': 17.0.31
+      '@types/node': 17.0.32
     dev: true
 
   /@types/bonjour/3.5.10:
     resolution: {integrity: sha512-p7ienRMiS41Nu2/igbJxxLDWrSZ0WxM8UQgCeO9KhoVF7cOVFkrKsiDr1EsJIla8vV3oEEjGcz11jc5yimhzZw==}
     dependencies:
-      '@types/node': 17.0.31
+      '@types/node': 17.0.32
     dev: true
 
   /@types/component-emitter/1.2.11:
@@ -1817,13 +1817,13 @@ packages:
     resolution: {integrity: sha512-h8QJa8xSb1WD4fpKBDcATDNGXghFj6/3GRWG6dhmRcu0RX1Ubasur2Uvx5aeEwlf0MwblEC2bMzzMQntxnw/Cw==}
     dependencies:
       '@types/express-serve-static-core': 4.17.28
-      '@types/node': 17.0.31
+      '@types/node': 17.0.32
     dev: true
 
   /@types/connect/3.4.35:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
-      '@types/node': 17.0.31
+      '@types/node': 17.0.32
     dev: true
 
   /@types/cookie/0.4.1:
@@ -1855,7 +1855,7 @@ packages:
   /@types/express-serve-static-core/4.17.28:
     resolution: {integrity: sha512-P1BJAEAW3E2DJUlkgq4tOL3RyMunoWXqbSCygWo5ZIWTjUgN1YnaXWW4VWl/oc8vs/XoYibEGBKP0uZyF4AHig==}
     dependencies:
-      '@types/node': 17.0.31
+      '@types/node': 17.0.32
       '@types/qs': 6.9.7
       '@types/range-parser': 1.2.4
     dev: true
@@ -1872,7 +1872,7 @@ packages:
   /@types/http-proxy/1.17.9:
     resolution: {integrity: sha512-QsbSjA/fSk7xB+UXlCT3wHBy5ai9wOcNDWwZAtud+jXhwOM3l+EYZh8Lng4+/6n8uar0J7xILzqftJdJ/Wdfkw==}
     dependencies:
-      '@types/node': 17.0.31
+      '@types/node': 17.0.32
     dev: true
 
   /@types/jasmine/4.0.3:
@@ -1887,8 +1887,8 @@ packages:
     resolution: {integrity: sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==}
     dev: true
 
-  /@types/node/17.0.31:
-    resolution: {integrity: sha512-AR0x5HbXGqkEx9CadRH3EBYx/VkiUgZIhP4wvPn/+5KIsgpNoyFaRlVe0Zlx9gRtg8fA06a9tskE2MSN7TcG4Q==}
+  /@types/node/17.0.32:
+    resolution: {integrity: sha512-eAIcfAvhf/BkHcf4pkLJ7ECpBAhh9kcxRBpip9cTiO+hf+aJrsxYxBeS6OXvOd9WqNAJmavXVpZvY1rBjNsXmw==}
     dev: true
 
   /@types/parse-json/4.0.0:
@@ -1917,19 +1917,19 @@ packages:
     resolution: {integrity: sha512-nCkHGI4w7ZgAdNkrEu0bv+4xNV/XDqW+DydknebMOQwkpDGx8G+HTlj7R7ABI8i8nKxVw0wtKPi1D+lPOkh4YQ==}
     dependencies:
       '@types/mime': 1.3.2
-      '@types/node': 17.0.31
+      '@types/node': 17.0.32
     dev: true
 
   /@types/sockjs/0.3.33:
     resolution: {integrity: sha512-f0KEEe05NvUnat+boPTZ0dgaLZ4SfSouXUgv5noUiefG2ajgKjmETo9ZJyuqsl7dfl2aHlLJUiki6B4ZYldiiw==}
     dependencies:
-      '@types/node': 17.0.31
+      '@types/node': 17.0.32
     dev: true
 
   /@types/ws/8.5.3:
     resolution: {integrity: sha512-6YOoWjruKj1uLf3INHH7D3qTXwFfEsg1kf3c0uDdSBJwfa/llkwIjrAGV7j7mVgGNbzTQ3HiHKKDXl6bJPD97w==}
     dependencies:
-      '@types/node': 17.0.31
+      '@types/node': 17.0.32
     dev: true
 
   /@webassemblyjs/ast/1.11.1:
@@ -3235,7 +3235,7 @@ packages:
     dependencies:
       '@types/cookie': 0.4.1
       '@types/cors': 2.8.12
-      '@types/node': 17.0.31
+      '@types/node': 17.0.32
       accepts: 1.3.8
       base64id: 2.0.0
       cookie: 0.4.2
@@ -4400,15 +4400,15 @@ packages:
       istanbul-lib-report: 3.0.0
     dev: true
 
-  /jasmine-core/4.1.0:
-    resolution: {integrity: sha512-8E8BiffCL8sBwK1zU9cbavLe8xpJAgOduSJ6N8PJVv8VosQ/nxVTuXj2kUeHxTlZBVvh24G19ga7xdiaxlceKg==}
+  /jasmine-core/4.1.1:
+    resolution: {integrity: sha512-lmUfT5XcK9KKvt3lLYzn93hc4MGzlUBowExFVgzbSW0ZCrdeyS574dfsyfRhxbg81Wj4gk+RxUiTnj7KBfDA1g==}
     dev: true
 
   /jest-worker/27.5.1:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 17.0.31
+      '@types/node': 17.0.32
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: true
@@ -4502,14 +4502,14 @@ packages:
       - supports-color
     dev: true
 
-  /karma-jasmine-html-reporter/1.7.0_jy42m2skhirzckqzwhzal4tgnu:
+  /karma-jasmine-html-reporter/1.7.0_h5kavcec5mk5shvgnx5rs5hu5i:
     resolution: {integrity: sha512-pzum1TL7j90DTE86eFt48/s12hqwQuiD+e5aXx2Dc9wDEn2LfGq6RoAxEZZjFiN0RDSCOnosEKRZWxbQ+iMpQQ==}
     peerDependencies:
       jasmine-core: '>=3.8'
       karma: '>=0.9'
       karma-jasmine: '>=1.1'
     dependencies:
-      jasmine-core: 4.1.0
+      jasmine-core: 4.1.1
       karma: 6.3.19
       karma-jasmine: 5.0.0_karma@6.3.19
     dev: true
@@ -4520,7 +4520,7 @@ packages:
     peerDependencies:
       karma: ^6.0.0
     dependencies:
-      jasmine-core: 4.1.0
+      jasmine-core: 4.1.1
       karma: 6.3.19
     dev: true
 
