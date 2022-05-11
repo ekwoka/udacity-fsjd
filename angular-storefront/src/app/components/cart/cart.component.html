@@ -8,12 +8,18 @@
       <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
 
       <ul
+        *ngIf="contents.length >= 1"
         role="list"
         class="divide-y divide-gray-200 border-t border-b border-gray-200">
         <cart-product
           *ngFor="let product of contents"
           [product]="product"></cart-product>
       </ul>
+      <span
+        *ngIf="contents.length < 1"
+        class="mx-auto block max-w-max text-center text-gray-500">
+        Your cart is empty.
+      </span>
     </section>
 
     <!-- Order summary -->
@@ -97,8 +103,9 @@
       <div class="mt-6">
         <button
           type="button"
-          class="w-full rounded-md border border-transparent bg-emerald-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-gray-50"
-          (click)="router.navigate(['checkout'])">
+          class="w-full rounded-md border border-transparent bg-emerald-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-gray-50 disabled:bg-gray-400 disabled:text-gray-200"
+          (click)="router.navigate(['checkout'])"
+          [disabled]="contents.length < 1">
           Checkout - {{ cartService.total.toFixed(2) }}
         </button>
       </div>
