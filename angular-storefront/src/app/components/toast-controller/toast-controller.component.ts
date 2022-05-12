@@ -9,7 +9,7 @@ import { Toast } from '../toast-item/toast-item.component';
       aria-live="assertive"
       class="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6">
       <div class="flex w-full flex-col items-center gap-y-4 sm:items-end">
-        <toast-item *ngFor="let toast of toasts" [toast]="toast"></toast-item>
+        <toast-item *ngFor="let toast of toasts" [toast]="toast" (removeToast)="removeToast($event)"></toast-item>
       </div>
     </div>
   `,
@@ -17,6 +17,9 @@ import { Toast } from '../toast-item/toast-item.component';
 export class ToastControllerComponent implements OnInit {
   get toasts(): Toast[] {
     return this.toastService.toasts;
+  }
+  removeToast(toast: Toast): void {
+    this.toastService.removeToast(toast);
   }
   constructor(private toastService: ToastsService) {}
 

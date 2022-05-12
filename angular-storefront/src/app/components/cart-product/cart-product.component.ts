@@ -40,6 +40,7 @@ import { Option } from '../select/select.component';
             >
             <input-select
               [(ngModel)]="product.quantity"
+              (ngModelChange)="handleChange($event)"
               [options]="quantityOptions"></input-select>
 
             <div class="absolute top-0 right-0">
@@ -71,6 +72,9 @@ import { Option } from '../select/select.component';
 export class CartProductComponent implements OnInit {
   @Input() product: CartItem;
   quantityOptions: Option[] = quantityOptions;
+  handleChange(value: number): void {
+    console.log('Using ngModelChange, New Value: ', value)
+  }
   constructor(private cartService: CartService) {
     this.product = {
       id: 0,

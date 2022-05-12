@@ -23,6 +23,9 @@ export class ToastsService {
       buttons,
     });
   }
+  removeToast(toast: Toast): void {
+    this.toasts = this.toasts.filter((t) => t !== toast);
+  }
 
   constructor() {}
 }

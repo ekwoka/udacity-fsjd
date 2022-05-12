@@ -5,8 +5,9 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { nextTick } from 'src/utils/nextTick';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'toast-item',
@@ -83,7 +84,15 @@ import { nextTick } from 'src/utils/nextTick';
 })
 export class ToastItemComponent implements OnInit {
   @Input() toast: Toast;
-  remove: boolean = false;
+  @Output() removeToast = new EventEmitter<Toast>()
+  _remove: boolean = false
+  get remove(): boolean {
+    return this._remove;
+  }
+  set remove(value: boolean) {
+    if (value) this.removeToast.emit(this.toast);
+    this._remove = value;
+  }
 
   constructor() {
     this.toast = {
