@@ -2,7 +2,7 @@
   "name": "storefront_backend",
   "version": "0.2.2",
   "description": "",
-  "main": "server.ts",
+  "main": "dist/server.js",
   "scripts": {
     "test": "run-s build pretest jasmine",
     "build": "run-s lint clean build:*",
@@ -10,7 +10,7 @@
     "build:js": "node scripts/esbuild.mjs",
     "jasmine": "ENV=test jasmine",
     "lint": "tsc && eslint --fix src && prettier --write src",
-    "start": "nodemon src/server.ts",
+    "start": "npm i; npm run build; node ./dist/server.js",
     "serve": "node dist/server.js",
     "pretest": "pnpm cleantest; db-migrate db:create full_stack_test; db-migrate --e test up",
     "cleantest": "db-migrate db:drop full_stack_test",
