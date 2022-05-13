@@ -8,9 +8,7 @@ jobs:
       tag: '18'
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm run frontend:install
+      - run: npm run frontend:install
       - run: npm run frontend:build
       - run: npm run frontend:deploy
   backend:
@@ -19,12 +17,12 @@ jobs:
       tag: '18'
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm run backend:install
+      - run: npm run backend:install
       - run: npm run backend:build
       - run: npm run backend:test
       - run: npm run backend:deploy
 workflows:
-  - frontend
-  - backend
+  deploy:
+    jobs:
+      - frontend
+      - backend
