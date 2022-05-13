@@ -1,12 +1,15 @@
 version: 2.1
 orbs:
   node: circleci/node@5.0.2
+  aws-cli: circleci/aws-cli@3.1.1
 jobs:
   frontend:
     executor:
       name: node/default
     steps:
+      - node/install
       - checkout
+      - aws-cli/setup
       - run: npm run frontend:install
       - run: npm run frontend:build
       - run: npm run frontend:deploy
@@ -14,7 +17,9 @@ jobs:
     executor:
       name: node/default
     steps:
+      - node/install
       - checkout
+      - aws-cli/setup
       - run: npm run backend:install
       - run: npm run backend:build
       - run: npm run backend:test
