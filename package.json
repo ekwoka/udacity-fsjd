@@ -1,0 +1,26 @@
+{
+  "name": "udacity-fsjd",
+  "version": "1.0.0",
+  "description": "This is a monorepo for my projects created as part of the Full Stack JavaScript Developer curriculum put on by Udacity for the Nanodegree of the same name.",
+  "main": "index.js",
+  "scripts": {
+    "frontend:install": "cd angular-storefront && npm i",
+    "frontend:build": "cd angular-storefront && npm run build",
+    "frontend:deploy": "cd angular-storefront && aws s3 cp ./dist/angular-storefront s3://fsjdbucket --recursive",
+    "backend:install": "cd storefront-api && npm i",
+    "backend:build": "cd storefront-api && npm run build",
+    "backend:test": "cd storefront-api && npm run test",
+    "backend:deploy": "cd storefront-api && eb deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ekwoka/udacity-fsjd.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ekwoka/udacity-fsjd/issues"
+  },
+  "homepage": "https://github.com/ekwoka/udacity-fsjd#readme"
+}
