@@ -10,7 +10,7 @@
     "backend:install": "cd storefront-api && npm i",
     "backend:build": "cd storefront-api && npm run createkeys && npm run build",
     "backend:test": "cd storefront-api && npm run test",
-    "backend:deploy": "cd storefront-api && eb use storefront-api-dev && eb deploy"
+    "backend:deploy": "cd storefront-api && eb init && eb use storefront-api-dev && eb deploy"
   },
   "repository": {
     "type": "git",
