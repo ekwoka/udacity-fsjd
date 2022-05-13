@@ -8,7 +8,7 @@
     "frontend:build": "cd angular-storefront && npm run build",
     "frontend:deploy": "cd angular-storefront && aws s3 cp ./dist/angular-storefront s3://fsjdbucket --recursive",
     "backend:install": "cd storefront-api && npm i",
-    "backend:build": "cd storefront-api && npm run build",
+    "backend:build": "cd storefront-api && npm createkeys && npm run build",
     "backend:test": "cd storefront-api && npm run test",
     "backend:deploy": "cd storefront-api && eb deploy"
   },
