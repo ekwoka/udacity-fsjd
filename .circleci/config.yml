@@ -31,7 +31,6 @@ workflows:
       - frontend
       - backend
       - eb/deploy:
-          context: aws-creds
           app-dir: storefront-api/
           environment-name: storefront-api-dev
           requires:
