@@ -5,7 +5,6 @@ jobs:
   frontend:
     executor:
       name: node/default
-      tag: '18'
     steps:
       - checkout
       - run: npm run frontend:install
@@ -14,7 +13,6 @@ jobs:
   backend:
     executor:
       name: node/default
-      tag: '18'
     steps:
       - checkout
       - run: npm run backend:install
