@@ -10,9 +10,9 @@ jobs:
     steps:
       - node/install
       - checkout
-      - aws-cli/setup
       - run: npm run frontend:install
       - run: npm run frontend:build
+      - aws-cli/setup
       - run: npm run frontend:deploy
   backend:
     executor:
@@ -20,14 +20,18 @@ jobs:
     steps:
       - node/install
       - checkout
-      - aws-cli/setup
-      - eb/setup
       - run: npm run backend:install
       - run: npm run backend:build
       - run: npm run backend:test
-      - run: npm run backend:deploy
+      - aws-cli/setup
+      - eb/setup
 workflows:
   deploy:
     jobs:
       - frontend
       - backend
+      - eb/deploy:
+          context: aws-creds
+          environment-name: storefront-api-dev
+          requires:
+            - backend
