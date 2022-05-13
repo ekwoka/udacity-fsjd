@@ -15,7 +15,7 @@
     "pretest": "run-s cleantest; db-migrate db:create full_stack_test; db-migrate --e test up",
     "cleantest": "db-migrate db:drop full_stack_test",
     "tsc": "tsc",
-    "createkeys": "mkdir secrets && ssh-keygen -t rsa -b 4096 -m PEM -f secrets/jwtRS256.key && openssl rsa -in secrets/jwtRS256.key -pubout -outform PEM -out secrets/jwtRS256.key.pub",
+    "createkeys": "mkdir secrets && ssh-keygen -t rsa -b 4096 -m PEM -f secrets/jwtRS256.key -N '' && openssl rsa -in secrets/jwtRS256.key -pubout -outform PEM -out secrets/jwtRS256.key.pub",
     "setup": "run-s db createkeys test",
     "db": "run-s db:*",
     "db:create": "docker-compose create",
