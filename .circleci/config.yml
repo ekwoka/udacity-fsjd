@@ -12,8 +12,8 @@ jobs:
       - checkout
       - run: npm run frontend:install
       - run: npm run frontend:build
-      - aws-cli/setup
-      - run: npm run frontend:deploy
+      - aws-cli/setup # sets up AWS CLI with data from ENV
+      - run: npm run frontend:deploy # Deploys frontend to S3
   backend:
     executor:
       name: node/default
@@ -22,7 +22,7 @@ jobs:
       - checkout
       - run: npm run backend:install
       - run: npm run backend:build
-      - run: npm run backend:test
+      - run: npm run backend:test # Runs Jasmine tests on backend
       - aws-cli/setup
       - eb/setup
 workflows:
@@ -30,7 +30,7 @@ workflows:
     jobs:
       - frontend
       - backend
-      - eb/deploy:
+      - eb/deploy: # deploys backend to Elastic Beanstalk
           app-dir: storefront-api/
           environment-name: storefront-api-dev
           requires:
