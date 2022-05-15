@@ -30,7 +30,7 @@ workflows:
     jobs:
       - frontend
       - backend
-      - eb/deploy: # deploys backend to Elastic Beanstalk
+      - eb/deploy: # DEPLOYS BACKEND TO ELASTIC BEANSTALK
           app-dir: storefront-api/
           environment-name: storefront-api-dev
           requires:
