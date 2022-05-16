@@ -1,6 +1,6 @@
 {
   "name": "storefront_backend",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "",
   "main": "dist/server.js",
   "scripts": {
@@ -42,7 +42,7 @@
     "@types/express": "^4.17.13",
     "@types/jasmine": "^4.0.3",
     "@types/jsonwebtoken": "^8.5.8",
-    "@types/node": "^17.0.32",
+    "@types/node": "^17.0.33",
     "@types/pg": "^8.6.5",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.23.0",
