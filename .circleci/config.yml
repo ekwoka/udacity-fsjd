@@ -27,14 +27,20 @@ jobs:
       - eb/setup
 workflows:
   deploy:
-    filters:
-      branches:
-        only: master
     jobs:
-      - frontend
-      - backend
+      - frontend:
+          filters:
+            branches:
+              only: master
+      - backend:
+          filters:
+            branches:
+             only: master
       - eb/deploy: # DEPLOYS BACKEND and ENV TO ELASTIC BEANSTALK
           app-dir: storefront-api/
           environment-name: storefront-api-dev
           requires:
             - backend
+          filters:
+            branches:
+              only: master
